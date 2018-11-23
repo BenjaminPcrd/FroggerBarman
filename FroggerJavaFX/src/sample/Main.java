@@ -8,11 +8,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.awt.event.KeyListener;
+import java.io.FileInputStream;
 import java.util.PrimitiveIterator;
 
 public class Main extends Application {
@@ -23,43 +27,67 @@ public class Main extends Application {
         Group root = new Group();
         primaryStage.setTitle("Barman Frogger");
         primaryStage.setScene(new Scene(root, 1280, 720, Color.BLACK));
+        //primaryStage.setMaximized(true);
         primaryStage.setResizable(false);
         primaryStage.show();
 
+        //Dimension size = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         double width = primaryStage.getWidth();
         double height = primaryStage.getHeight();
+        System.out.println(width);
+        System.out.println(height);
 
         Barman b = new Barman(width/2-25, height-50, 50, 50, 2);
         root.getChildren().add(b);
-        bouger(primaryStage, b);
+        bouger(primaryStage, b, width, height);
+        /*try {
+            Image image = new Image(new FileInputStream("../../images/loic.png"));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }*/
+        Image image = new Image(new FileInputStream("images/loic.png"));
+        ImageView imageView = new ImageView(image);
+        imageView.setX(b.getX());
+        imageView.setY(b.getY());
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+        root.getChildren().add(imageView);
         //test();
 
     }
 
-    public void bouger(Stage primaryStage, Barman b) {
+    public void bouger(Stage primaryStage, Barman b, double width, double height) {
         AnimationTimer moveUp = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                b.getRect().setY(b.getRect().getY() - b.getSpeed());
+                if (b.getRect().getY() > 0) {
+                    b.getRect().setY(b.getRect().getY() - b.getSpeed());
+                }
             }
         };
         AnimationTimer moveDown = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                b.getRect().setY(b.getRect().getY() + b.getSpeed());
+                if (b.getRect().getY() < height - b.getRect().getHeight()) {
+                    b.getRect().setY(b.getRect().getY() + b.getSpeed());
+                }
 
             }
         };
         AnimationTimer moveLeft = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                b.getRect().setX(b.getRect().getX() - b.getSpeed());
+                if (b.getRect().getX() > 0) {
+                    b.getRect().setX(b.getRect().getX() - b.getSpeed());
+                }
             }
         };
         AnimationTimer moveRight = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                b.getRect().setX(b.getRect().getX() + b.getSpeed());
+                if (b.getRect().getX() < width - b.getRect().getWidth()) {
+                    b.getRect().setX(b.getRect().getX() + b.getSpeed());
+                }
             }
         };
 
