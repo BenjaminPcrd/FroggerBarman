@@ -1,10 +1,10 @@
 package Metier;
 
 public class Client extends Personnage {
-    private Boisson b;
+    private Boisson boisson;
 
-    public Client(double x, double y, double w, double h, Boisson b) {
+    public Client(double x, double y, double w, double h, Boisson boisson) {
         super(x, y, w, h);
-        this.b = b;
+        this.boisson = boisson;
     }
 }

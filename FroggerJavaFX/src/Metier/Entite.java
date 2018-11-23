@@ -14,4 +14,36 @@ public class Entite extends Group {
         this.w = w;
         this.h = h;
     }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getW() {
+        return w;
+    }
+
+    public double getH() {
+        return h;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setW(double w) {
+        this.w = w;
+    }
+
+    public void setH(double h) {
+        this.h = h;
+    }
 }

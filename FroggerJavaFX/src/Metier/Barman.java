@@ -9,14 +9,16 @@ import java.util.ArrayList;
 public class Barman extends Personnage {
     private static final int tPlateau = 4;
     private ArrayList<Boisson> plateau;
-    Rectangle rect;
+    private Rectangle rect;
+    private double speed;
 
-    public Barman(double x, double y, double w, double h) {
+    public Barman(double x, double y, double w, double h, double speed) {
         super(x, y, w, h);
         this.plateau = new ArrayList<>();
+        this.speed = speed;
 
         rect = new Rectangle();
-        rect.setFill(Color.BLUE);
+        rect.setFill(Color.WHITE);
         rect.setWidth(w);
         rect.setHeight(h);
         rect.setX(x);
@@ -52,5 +54,21 @@ public class Barman extends Personnage {
 
     public ArrayList<Boisson> getPlateau() {
         return plateau;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
     }
 }
