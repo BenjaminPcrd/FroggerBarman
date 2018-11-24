@@ -1,30 +1,17 @@
 package Metier;
 
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
 import java.util.ArrayList;
 
 public class Barman extends Personnage {
     private static final int tPlateau = 4;
     private ArrayList<Boisson> plateau;
-    private Rectangle rect;
     private double speed;
 
-    public Barman(double x, double y, double w, double h, double speed) {
-        super(x, y, w, h);
+    public Barman(double x, double y, double w, double h, double speed, String imgPath) {
+        super(x, y, w, h, speed, imgPath);
         this.plateau = new ArrayList<>();
-        this.speed = speed;
 
-        rect = new Rectangle();
-        rect.setFill(Color.WHITE);
-        rect.setWidth(w);
-        rect.setHeight(h);
-        rect.setX(x);
-        rect.setY(y);
-
-        this.getChildren().add(rect);
     }
 
     public void ajouterBoisson(Bar bar) throws Exception {
@@ -62,13 +49,5 @@ public class Barman extends Personnage {
 
     public void setSpeed(double speed) {
         this.speed = speed;
-    }
-
-    public Rectangle getRect() {
-        return rect;
-    }
-
-    public void setRect(Rectangle rect) {
-        this.rect = rect;
     }
 }

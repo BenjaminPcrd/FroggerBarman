@@ -26,7 +26,7 @@ public class Main extends Application {
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Group root = new Group();
         primaryStage.setTitle("Barman Frogger");
-        primaryStage.setScene(new Scene(root, 1280, 720, Color.BLACK));
+        primaryStage.setScene(new Scene(root, 1280, 720, Color.SKYBLUE));
         //primaryStage.setMaximized(true);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -37,21 +37,11 @@ public class Main extends Application {
         System.out.println(width);
         System.out.println(height);
 
-        Barman b = new Barman(width/2-25, height-50, 50, 50, 2);
+        Barman b = new Barman(width/2-25, height-50, 50, 50, 2, "images/loic.png");
         root.getChildren().add(b);
         bouger(primaryStage, b, width, height);
-        /*try {
-            Image image = new Image(new FileInputStream("../../images/loic.png"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }*/
-        Image image = new Image(new FileInputStream("images/loic.png"));
-        ImageView imageView = new ImageView(image);
-        imageView.setX(b.getX());
-        imageView.setY(b.getY());
-        imageView.setFitWidth(50);
-        imageView.setFitHeight(50);
-        root.getChildren().add(imageView);
+
+
         //test();
 
     }
@@ -61,7 +51,7 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 if (b.getRect().getY() > 0) {
-                    b.getRect().setY(b.getRect().getY() - b.getSpeed());
+                    b.move("UP");
                 }
             }
         };
@@ -69,7 +59,7 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 if (b.getRect().getY() < height - b.getRect().getHeight()) {
-                    b.getRect().setY(b.getRect().getY() + b.getSpeed());
+                    b.move("DOWN");
                 }
 
             }
@@ -78,7 +68,7 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 if (b.getRect().getX() > 0) {
-                    b.getRect().setX(b.getRect().getX() - b.getSpeed());
+                    b.move("LEFT");
                 }
             }
         };
@@ -86,7 +76,7 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 if (b.getRect().getX() < width - b.getRect().getWidth()) {
-                    b.getRect().setX(b.getRect().getX() + b.getSpeed());
+                    b.move("RIGHT");
                 }
             }
         };
@@ -136,9 +126,9 @@ public class Main extends Application {
     public void test() {
         Boisson b1 = new Boisson("Biere");
         Boisson b2 = new Boisson("Coca");
-        Bar barBiere = new Bar(0, 0, 0, 0, b1, 10);
-        Bar barCoca = new Bar(0, 0, 0, 0, b2, 10);
-        Barman loic = new Barman(0, 0, 0, 0, 0);
+        Bar barBiere = new Bar(0, 0, 0, 0, b1, 10, null);
+        Bar barCoca = new Bar(0, 0, 0, 0, b2, 10, null);
+        Barman loic = new Barman(0, 0, 0, 0, 0, "images/loifffc.png");
         try {
             loic.ajouterBoisson(barBiere);
             loic.ajouterBoisson(barBiere);

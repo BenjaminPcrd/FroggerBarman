@@ -1,49 +1,57 @@
 package Metier;
 
 import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
-public class Entite extends Group {
-    private double x;
-    private double y;
-    private double w;
-    private double h;
+import java.io.FileInputStream;
 
-    public Entite(double x, double y, double w, double h) {
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
+public abstract class Entite extends Group {
+    private Rectangle rect;
+    private ImageView imageView;
+
+    public Entite(double x, double y, double w, double h, String imgPath) {
+        this.rect = new Rectangle();
+        this.rect.setWidth(w);
+        this.rect.setHeight(h);
+        this.rect.setX(x);
+        this.rect.setY(y);
+        this.getChildren().add(rect);
+        Image img;
+        try {
+            img = new Image(new FileInputStream(imgPath));
+            imageView = new ImageView(img);
+            imageView.setFitWidth(w);
+            imageView.setFitHeight(h);
+            this.getChildren().add(imageView);
+            this.rect.setVisible(false);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            this.rect.setFill(Color.WHITE);
+        }
+
+
+
     }
 
-    public double getX() {
-        return x;
+    public ImageView getImageView() {
+        return imageView;
     }
 
-    public double getY() {
-        return y;
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
     }
 
-    public double getW() {
-        return w;
+    public Rectangle getRect() {
+        return rect;
     }
 
-    public double getH() {
-        return h;
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
+    public abstract void move(String mouvement);
 
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public void setW(double w) {
-        this.w = w;
-    }
-
-    public void setH(double h) {
-        this.h = h;
-    }
 }
