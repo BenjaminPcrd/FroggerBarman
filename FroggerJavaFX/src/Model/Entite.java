@@ -1,4 +1,4 @@
-package Metier;
+package Model;
 
 import javafx.scene.Group;
 import javafx.scene.image.Image;

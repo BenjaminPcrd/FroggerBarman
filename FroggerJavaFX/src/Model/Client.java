@@ -1,4 +1,4 @@
-package Metier;
+package Model;
 
 public class Client extends Personnage {
     private Boisson boisson;

@@ -1,4 +1,4 @@
-package Metier;
+package Model;
 
 public class Personnage extends Entite {
 

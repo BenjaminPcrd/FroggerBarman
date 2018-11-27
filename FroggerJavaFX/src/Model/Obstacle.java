@@ -1,4 +1,4 @@
-package Metier;
+package Model;
 
 public class Obstacle extends Entite {
     private double speed;

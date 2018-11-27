@@ -1,4 +1,4 @@
-package Metier;
+package Model;
 
 public class Voiture extends Obstacle {
 

@@ -1,4 +1,4 @@
-package Metier;
+package Model;
 
 public class Bar extends Entite {
     private Boisson boisson;

@@ -1,103 +1,38 @@
 package Vue;
 
-import Metier.*;
-import javafx.animation.AnimationTimer;
+import Controller.Controller;
+import Model.*;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+import java.io.FileInputStream;
 
+public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         //Parent root = FXMLLoader.load(getClass().getResource("Vue.fxml"));
         Group root = new Group();
         primaryStage.setTitle("Barman Frogger");
-        Scene scene = new Scene(root, 1280, 720, Color.SKYBLUE);
+        Scene scene = new Scene(root, 1280, 720, Color.LIGHTSTEELBLUE);
         primaryStage.setScene(scene);
         //primaryStage.setMaximized(true);
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        //Dimension size = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        double width = primaryStage.getWidth();
-        double height = primaryStage.getHeight();
-        System.out.println(width);
-        System.out.println(height);
+        ImageView background = new ImageView(new Image(new FileInputStream("images/fond.png")));
+        root.getChildren().add(background);
 
-        Barman b = new Barman(width/2-25, height-50, 50, 50, 2, "images/loic.png");
+        Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 0.5, "images/loic.png");
         root.getChildren().add(b);
-        bouger(scene, b);
-
+        Controller c = new Controller();
+        c.update(scene, b);
 
         //test();
-
-    }
-
-    private boolean up, down, right, left;
-    public void bouger(Scene scene, Barman b) {
-        AnimationTimer move = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                /*if (b.getRect().getY() > 0
-                    && b.getRect().getY() < scene.getHeight() - b.getRect().getHeight()
-                    && b.getRect().getX() > 0
-                    && b.getRect().getX() < scene.getWidth() - b.getRect().getWidth()) {*/
-                    if (up) {
-                        b.move("UP");
-                    }
-                    if (down) {
-                        b.move("DOWN");
-                    }
-                    if (right) {
-                        b.move("RIGHT");
-                    }
-                    if (left) {
-                        b.move("LEFT");
-                    }
-                }
-            //}
-        };
-
-        move.start();
-
-        scene.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case UP:
-                    up = true;
-                    break;
-                case DOWN:
-                    down = true;
-                    break;
-                case RIGHT:
-                    right = true;
-                    break;
-                case LEFT:
-                    left = true;
-                    break;
-            }
-        });
-        scene.setOnKeyReleased(event -> {
-            switch (event.getCode()) {
-                case UP:
-                    up = false;
-                    break;
-                case DOWN:
-                    down = false;
-                    break;
-                case RIGHT:
-                    right = false;
-                    break;
-                case LEFT:
-                    left = false;
-                    break;
-
-            }
-        });
     }
 
     public void test() {

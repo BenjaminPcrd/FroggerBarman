@@ -1,4 +1,4 @@
-package Metier;
+package Model;
 
 public class Boisson {
     private String nom;
