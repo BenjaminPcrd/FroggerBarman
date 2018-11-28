@@ -1,38 +1,23 @@
 package Vue;
 
-import Controller.Controller;
 import Model.*;
-import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.application.Application;;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 
 public class Main extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        //Parent root = FXMLLoader.load(getClass().getResource("Vue.fxml"));
-        Group root = new Group();
-        primaryStage.setTitle("Barman Frogger");
-        Scene scene = new Scene(root, 1280, 720, Color.LIGHTSTEELBLUE);
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+        primaryStage.setTitle("Barman Frogger - MenuController");
+        Scene scene = new Scene(root, 400, 600);
         primaryStage.setScene(scene);
-        //primaryStage.setMaximized(true);
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        ImageView background = new ImageView(new Image(new FileInputStream("images/fond.png")));
-        root.getChildren().add(background);
-
-        Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 0.5, "images/loic.png");
-        root.getChildren().add(b);
-        Controller c = new Controller();
-        c.update(scene, b);
-
-        //test();
     }
 
     public void test() {
