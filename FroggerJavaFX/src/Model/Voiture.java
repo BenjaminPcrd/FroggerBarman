@@ -1,15 +1,9 @@
 package Model;
 
 public class Voiture extends Obstacle {
-    private String direction;
 
-    public Voiture(double x, double y, double w, double h, double speed, String direction, String imgPath) {
+    public Voiture(double x, double y, double w, double h, double speed, String imgPath) {
         super(x, y, w, h, speed, imgPath);
-        this.direction = direction;
-    }
-
-    public String getDirection() {
-        return direction;
     }
 
 }

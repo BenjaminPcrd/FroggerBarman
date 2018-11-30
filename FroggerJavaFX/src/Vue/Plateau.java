@@ -2,6 +2,7 @@ package Vue;
 
 import Controller.Controller;
 import Model.Barman;
+import Model.Voiture;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -26,6 +27,10 @@ public class Plateau {
         root.getChildren().add(b);
         Controller c = new Controller();
         c.update(scene, b);
+
+        Voiture v = new Voiture(710, 360, 50, 50, 2, "images/loic.png");
+        root.getChildren().add(v);
+        c.MoveVoiture(scene, v, "LEFT");
 
     }
 }

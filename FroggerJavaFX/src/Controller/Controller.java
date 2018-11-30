@@ -69,19 +69,23 @@ public class Controller {
         });
     }
 
-    public void MoveVoiture(Scene scene, Voiture v ){
+    public void MoveVoiture(Scene scene, Voiture v, String direction){
         AnimationTimer move = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (v.getDirection() == "LEFT") {
-                    v.move("LEFT");
-                    if(v.getRect().getX() + v.getRect().getWidth() + latence < 0) {
-                        v.getRect().setX(scene.getWidth());
-                    }
-
-                }
-                if (v.getDirection() == "RIGHT" && v.getRect().getX() < scene.getWidth() - v.getRect().getWidth()) {
-                    v.move("RIGHT");
+                switch(direction) {
+                    case "LEFT":
+                        v.move("LEFT");
+                        if (v.getRect().getX() < 0) {
+                            v.getRect().setX(scene.getWidth());
+                        }
+                        break;
+                    case "RIGHT":
+                        v.move("RIGHT");
+                        if (v.getRect().getX() > scene.getWidth()) {
+                            v.getRect().setX(0 - v.getRect().getWidth());
+                        }
+                        break;
                 }
             }
         };
