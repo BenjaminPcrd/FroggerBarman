@@ -10,21 +10,18 @@ public class Obstacle extends Entite {
 
     @Override
     public void move(String direction) {
-        switch (direction) {
-            case "RIGHT":
-                this.getRect().setX(this.getRect().getX() + this.speed);
-                if (this.getImageView() != null) {
-                    this.getImageView().setX(this.getRect().getX());
-                    this.getImageView().setRotate(90);
-                }
-                break;
-            case "LEFT":
+        if(direction =="RIGHT") {
+            this.getRect().setX(this.getRect().getX() + this.speed);
+            if (this.getImageView() != null) {
+                this.getImageView().setX(this.getRect().getX());
+                this.getImageView().setRotate(90);
+            }
+        } else if(direction == "LEFT") {
                 this.getRect().setX(this.getRect().getX() - this.speed);
                 if (this.getImageView() != null) {
                     this.getImageView().setX(this.getRect().getX());
                     this.getImageView().setRotate(270);
                 }
-                break;
         }
     }
 }
