@@ -16,7 +16,7 @@ public class Controller {
         this.right = false;
     }
 
-    public void update(Scene scene, Barman b, Voiture v) {
+    public void update(Scene scene, Barman b) {
         AnimationTimer move = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -31,23 +31,6 @@ public class Controller {
                 }
                 if (right && b.getRect().getX() < scene.getWidth() - b.getRect().getWidth()) {
                     b.move("RIGHT");
-                }
-                double left = b.getRect().getX();
-                double right = b.getRect().getX() + b.getRect().getWidth();
-                double top = b.getRect().getY();
-                double bottom = b.getRect().getY() + b.getRect().getHeight();
-
-                double oleft = v.getRect().getX();
-                double oright = v.getRect().getX() + v.getRect().getWidth();
-                double otop = v.getRect().getY();
-                double obottom = v.getRect().getY() + v.getRect().getHeight();
-
-                if( !(left >= oright ||
-                        right <= oleft ||
-                        top >= obottom ||
-                        bottom <= otop)) {
-                    b.getRect().setX(scene.getWidth()/2-25);
-                    b.getRect().setY(scene.getHeight()-50);
                 }
             }
         };
@@ -86,7 +69,7 @@ public class Controller {
         });
     }
 
-    public void MoveVoiture(Scene scene, Voiture v, String direction){
+    public void MoveVoiture(Scene scene, Voiture v, String direction) {
         AnimationTimer move = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -107,5 +90,17 @@ public class Controller {
             }
         };
         move.start();
+    }
+
+    public void Collision(Scene scene, Barman b, Voiture v) {
+        AnimationTimer collision = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                if(b.getRect().intersects(v.getRect().getBoundsInLocal())){
+                    b.resetPos(scene.getWidth()/2-25, scene.getHeight()-50);
+                }
+            }
+        };
+        collision.start();
     }
 }

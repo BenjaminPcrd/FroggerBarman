@@ -44,7 +44,14 @@ public class Personnage extends Entite {
                     this.getImageView().setRotate(270);
                 }
                 break;
-
+        }
+    }
+    public void resetPos(double x, double y) {
+        this.getRect().setX(x);
+        this.getRect().setY(y);
+        if (this.getImageView() != null) {
+            this.getImageView().setX(this.getRect().getX());
+            this.getImageView().setRotate(0);
         }
     }
 }

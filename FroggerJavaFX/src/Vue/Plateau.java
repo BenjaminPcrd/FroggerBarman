@@ -3,6 +3,7 @@ package Vue;
 import Controller.Controller;
 import Model.Barman;
 import Model.Voiture;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -23,7 +24,7 @@ public class Plateau {
         ImageView background = new ImageView(new Image(new FileInputStream("images/fond.png")));
         root.getChildren().add(background);
 
-        Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 2, "images/loic.png");
+        Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 2, "images/loiic.png");
         root.getChildren().add(b);
         Controller c = new Controller();
 
@@ -31,9 +32,10 @@ public class Plateau {
         Voiture v = new Voiture(710, 360, 100, 200, 1, "images/voiture1.png");
         root.getChildren().add(v);
 
-        c.update(scene, b, v);
+        c.update(scene, b);
         c.MoveVoiture(scene, v, "LEFT");
 
+        c.Collision(scene, b, v);
     }
 
 }
