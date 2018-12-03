@@ -18,31 +18,31 @@ public class Personnage extends Entite {
         switch (direction) {
             case "DOWN":
                 this.getRect().setY(this.getRect().getY() + this.speed);
-                if (this.getImageView() != null) {
+                /*if (this.getImageView() != null) {
                     this.getImageView().setY(this.getRect().getY());
                     this.getImageView().setRotate(180);
-                }
+                }*/
                 break;
             case "UP":
                 this.getRect().setY(this.getRect().getY() - this.speed);
-                if (this.getImageView() != null) {
+                /*if (this.getImageView() != null) {
                     this.getImageView().setY(this.getRect().getY());
                     this.getImageView().setRotate(0);
-                }
+                }*/
                 break;
             case "RIGHT":
                 this.getRect().setX(this.getRect().getX() + this.speed);
-                if (this.getImageView() != null) {
+                /*if (this.getImageView() != null) {
                     this.getImageView().setX(this.getRect().getX());
                     this.getImageView().setRotate(90);
-                }
+                }*/
                 break;
             case "LEFT":
                 this.getRect().setX(this.getRect().getX() - this.speed);
-                if (this.getImageView() != null) {
+                /*if (this.getImageView() != null) {
                     this.getImageView().setX(this.getRect().getX());
                     this.getImageView().setRotate(270);
-                }
+                }*/
                 break;
         }
     }
@@ -50,7 +50,8 @@ public class Personnage extends Entite {
         this.getRect().setX(x);
         this.getRect().setY(y);
         if (this.getImageView() != null) {
-            this.getImageView().setX(this.getRect().getX());
+            /*this.getImageView().setX(this.getRect().getX());
+            this.getImageView().setY(this.getRect().getY());*/
             this.getImageView().setRotate(0);
         }
     }

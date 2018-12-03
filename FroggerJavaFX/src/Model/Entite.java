@@ -19,14 +19,14 @@ public abstract class Entite extends Group {
         this.rect.setX(x);
         this.rect.setY(y);
         this.getChildren().add(rect);
-        Image img;
         try {
-            img = new Image(new FileInputStream(imgPath));
-            imageView = new ImageView(img);
+            imageView = new ImageView(new Image(new FileInputStream(imgPath)));
             imageView.setFitWidth(w);
             imageView.setFitHeight(h);
             this.getChildren().add(imageView);
             this.rect.setVisible(false);
+            /*imageView.xProperty().bind(rect.xProperty());
+            imageView.yProperty().bind(rect.yProperty());*/
         } catch (Exception e) {
             System.out.println(e.getMessage());
             this.rect.setFill(Color.WHITE);
