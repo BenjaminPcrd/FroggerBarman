@@ -14,8 +14,10 @@ public abstract class Entite extends Group {
 
     public Entite(double x, double y, double w, double h, String imgPath) {
         this.rect = new Rectangle();
-        this.rect.setWidth(w);
-        this.rect.setHeight(h);
+        this.rect.setWidth(w - 20);
+        this.rect.setHeight(h - 20);
+        this.rect.setTranslateX(10);
+        this.rect.setTranslateY(10);
         this.rect.setX(x);
         this.rect.setY(y);
         this.getChildren().add(rect);

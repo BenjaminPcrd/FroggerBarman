@@ -23,22 +23,42 @@ public class Plateau {
 
         ImageView background = new ImageView(new Image(new FileInputStream("images/fond.png")));
         root.getChildren().add(background);
+
         Controller c = new Controller();
-        Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 1, "images/loic.png");
+
+        Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 1.3, "images/loic.png");
         root.getChildren().add(b);
 
-       /* b.getRect().xProperty().bind(b.getImageView().xProperty());
-        b.getRect().yProperty().bind(b.getImageView().yProperty());*/
-       b.getImageView().xProperty().bind(b.getRect().xProperty());
-       b.getImageView().yProperty().bind(b.getRect().yProperty());
+       /*b.getRect().xProperty().bind(b.getImageView().xProperty());
+        b.getRect().yProperty().bind(b.getImageView().yProperty());
+        b.getImageView().xProperty().bind(b.getRect().xProperty());
+        b.getImageView().yProperty().bind(b.getRect().yProperty());*/
 
-        Voiture v = new Voiture(710, 360, 200, 75, 1, "images/voiture11.png");
-        root.getChildren().add(v);
+
+        Voiture v1 = new Voiture(0, 500, 200, 100, 2.2, "images/voiture1.png");
+        Voiture v2 = new Voiture(0, 375, 200, 100, 2.7, "images/voiture2.png");
+        Voiture v3 = new Voiture(0, 250, 200, 100, 2.8, "images/voiture3.png");
+        Voiture v4 = new Voiture(0, 125, 200, 100, 2.4, "images/voiture4.png");
+
+
+        root.getChildren().add(v1);
+        root.getChildren().add(v2);
+        root.getChildren().add(v3);
+        root.getChildren().add(v4);
+
+        c.MoveVoiture(scene, v1, "RIGHT");
+        c.MoveVoiture(scene, v2, "RIGHT");
+        c.MoveVoiture(scene, v3, "LEFT");
+        c.MoveVoiture(scene, v4, "LEFT");
+
 
         c.update(scene, b);
-        c.MoveVoiture(scene, v, "LEFT");
 
-        c.Collision(scene, b, v);
+
+        c.Collision(scene, b, v1);
+        c.Collision(scene, b, v2);
+        c.Collision(scene, b, v3);
+        c.Collision(scene, b, v4);
     }
 
 }
