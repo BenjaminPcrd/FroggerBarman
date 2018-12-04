@@ -76,13 +76,13 @@ public class Controller {
                 switch(direction) {
                     case "LEFT":
                         v.move("LEFT");
-                        if (v.getRect().getX() < 0) {
+                        if (v.getRect().getX() < 0 - v.getRect().getWidth() - latence) {
                             v.getRect().setX(scene.getWidth());
                         }
                         break;
                     case "RIGHT":
                         v.move("RIGHT");
-                        if (v.getRect().getX() > scene.getWidth()) {
+                        if (v.getRect().getX() > scene.getWidth() + latence) {
                             v.getRect().setX(0 - v.getRect().getWidth());
                         }
                         break;

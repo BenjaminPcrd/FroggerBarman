@@ -18,14 +18,14 @@ public class Obstacle extends Entite {
                 this.getRect().setX(this.getRect().getX() - this.speed);
                 if (this.getImageView() != null) {
                     this.getImageView().setX(this.getRect().getX());
-                    this.getImageView().setRotate(270);
+                    this.getImageView().setRotate(0);
                 }
                 break;
             case "RIGHT":
                 this.getRect().setX(this.getRect().getX() + this.speed);
                 if (this.getImageView() != null) {
                     this.getImageView().setX(this.getRect().getX());
-                    this.getImageView().setRotate(90);
+                    this.getImageView().setRotate(180);
                 }
                 break;
         }
