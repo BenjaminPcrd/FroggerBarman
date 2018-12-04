@@ -2,7 +2,10 @@ package Vue;
 
 import Controller.Controller;
 import Model.Barman;
+import Model.Boisson;
 import Model.Voiture;
+import Model.Client;
+import Model.Bar;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -13,8 +16,16 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 
 public class Plateau {
+
+    Group root;
+
+    public void enlever(Object o){
+        root.getChildren().remove(o);
+    }
+
+
     public void start(Stage primaryStage) throws Exception {
-        Group root = new Group();
+        root = new Group();
         primaryStage.setTitle("Barman Frogger");
         Scene scene = new Scene(root, 1280, 720);
         primaryStage.setScene(scene);
@@ -37,8 +48,19 @@ public class Plateau {
 
         c.update(scene, b);
         c.MoveVoiture(scene, v, "LEFT");
-
         c.Collision(scene, b, v);
+
+        Boisson biere = new Boisson("biere");
+        Bar bar = new Bar(10, 55, 20, 20, biere ,10,"images/voiturelpok11.png");
+        b.ajouterBoisson(bar, bar.getBoisson());
+        root.getChildren().add(bar);
+
+        Client client = new Client(10, 20, 20, 20, 1, bar.getBoisson(),"images/voiturelpok11.png");
+        root.getChildren().add(client);
+
+        c.collisionClient(this,b,client);
+
+
     }
 
 }

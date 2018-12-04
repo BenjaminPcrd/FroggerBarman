@@ -1,7 +1,7 @@
 package Controller;
 
-import Model.Barman;
-import Model.Voiture;
+import Model.*;
+import Vue.Plateau;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 
@@ -98,6 +98,26 @@ public class Controller {
             public void handle(long l) {
                 if(b.getRect().intersects(v.getRect().getBoundsInLocal())){
                     b.resetPos(scene.getWidth()/2-25, scene.getHeight()-50);
+                }
+            }
+        };
+        collision.start();
+    }
+
+    public void collisionClient(Plateau p, Barman b, Client client){
+        AnimationTimer collision = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                if(b.getRect().intersects(client.getRect().getBoundsInLocal())){
+                    try {
+                        b.enleverBoisson(client.getBoisson());
+                        System.out.println("OUIIIIIIIIIIIIIII");
+                        p.enlever(client);
+
+
+                    } catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         };

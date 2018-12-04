@@ -36,6 +36,8 @@ public abstract class Entite extends Group {
 
     }
 
+
+
     public ImageView getImageView() {
         return imageView;
     }

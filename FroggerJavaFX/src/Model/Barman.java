@@ -14,10 +14,10 @@ public class Barman extends Personnage {
 
     }
 
-    public void ajouterBoisson(Bar bar) throws Exception {
+    public void ajouterBoisson(Bar bar, Boisson boisson) throws Exception {
         if (plateau.size() < tPlateau) {
             if (bar.getNbBoisson() > 0) {
-                plateau.add(bar.getBoisson());
+                plateau.add(boisson);
                 bar.setNbBoisson(bar.getNbBoisson() - 1);
             } else {
                 throw new Exception("bar vide");
