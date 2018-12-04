@@ -28,15 +28,15 @@ public class Main extends Application {
         Bar barCoca = new Bar(0, 0, 0, 0, b2, 10, null);
         Barman loic = new Barman(0, 0, 0, 0, 0, "images/loifffc.png");
         try {
-            loic.ajouterBoisson(barBiere);
-            loic.ajouterBoisson(barBiere);
-            loic.ajouterBoisson(barCoca);
-            loic.ajouterBoisson(barCoca);
+            loic.ajouterBoisson(barBiere, barBiere.getBoisson());
+            loic.ajouterBoisson(barBiere, barBiere.getBoisson());
+            loic.ajouterBoisson(barCoca, barCoca.getBoisson());
+            loic.ajouterBoisson(barCoca, barCoca.getBoisson());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         try {
-            loic.ajouterBoisson(barCoca);
+            loic.ajouterBoisson(barCoca, barCoca.getBoisson());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

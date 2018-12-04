@@ -7,4 +7,8 @@ public class Client extends Personnage {
         super(x, y, w, h, speed, imgPath);
         this.boisson = boisson;
     }
+
+    public Boisson getBoisson() {
+        return boisson;
+    }
 }
