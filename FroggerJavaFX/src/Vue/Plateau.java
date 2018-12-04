@@ -65,6 +65,8 @@ public class Plateau {
 
         c.update(scene, b);
 
+        //je suis un commentaire d'exemple
+
         c.Collision(scene, b, v1);
         c.Collision(scene, b, v2);
         c.Collision(scene, b, v3);
