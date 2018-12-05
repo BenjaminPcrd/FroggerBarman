@@ -37,7 +37,7 @@ public class Plateau {
 
         Controller c = new Controller();
 
-        Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 1.3, "images/loic.png");
+        Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 0.7, "images/loic.png");
         root.getChildren().add(b);
 
        /*b.getRect().xProperty().bind(b.getImageView().xProperty());
@@ -70,9 +70,9 @@ public class Plateau {
         c.Collision(scene, b, v1);
         c.Collision(scene, b, v2);
         c.Collision(scene, b, v3);
-        c.Collision(scene, b, v4);=
-        c.MoveVoiture(scene, v, "LEFT");
-        c.Collision(scene, b, v);
+        c.Collision(scene, b, v4);
+        /*c.MoveVoiture(scene, v, "LEFT");
+        c.Collision(scene, b, v);*/
 
         Boisson biere = new Boisson("biere");
         Bar bar = new Bar(10, 55, 20, 20, biere ,10,"images/voiturelpok11.png");
