@@ -6,23 +6,21 @@ import Model.Boisson;
 import Model.Voiture;
 import Model.Client;
 import Model.Bar;
-import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import sun.security.krb5.SCDynamicStoreConfig;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Plateau {
 
-    Group root;
-
-    public void enlever(Object o){
-        root.getChildren().remove(o);
-    }
-
+    private Group root;
 
     public void start(Stage primaryStage) throws Exception {
         root = new Group();
@@ -39,52 +37,45 @@ public class Plateau {
 
         Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 0.7, "images/loic.png");
         root.getChildren().add(b);
-
+        c.update(scene, b);
        /*b.getRect().xProperty().bind(b.getImageView().xProperty());
         b.getRect().yProperty().bind(b.getImageView().yProperty());
         b.getImageView().xProperty().bind(b.getRect().xProperty());
         b.getImageView().yProperty().bind(b.getRect().yProperty());*/
 
-
-        Voiture v1 = new Voiture(0, 500, 200, 100, 2.2, "images/voiture1.png");
-        Voiture v2 = new Voiture(0, 375, 200, 100, 2.7, "images/voiture2.png");
-        Voiture v3 = new Voiture(0, 250, 200, 100, 2.8, "images/voiture3.png");
-        Voiture v4 = new Voiture(0, 125, 200, 100, 2.4, "images/voiture4.png");
+        level1(scene, c, b);
 
 
-        root.getChildren().add(v1);
-        root.getChildren().add(v2);
-        root.getChildren().add(v3);
-        root.getChildren().add(v4);
+    }
 
-        c.MoveVoiture(scene, v1, "RIGHT");
-        c.MoveVoiture(scene, v2, "RIGHT");
-        c.MoveVoiture(scene, v3, "LEFT");
-        c.MoveVoiture(scene, v4, "LEFT");
+    public void level1(Scene scene, Controller c, Barman b) {
+        int nbVoiture = 4;
+        Random r = new Random();
+        List<Voiture> voitures = new ArrayList<>();
+        for(int i = 1; i <= nbVoiture; i++) {
+            voitures.add(new Voiture(i * 200, 125 * i, 200, 100, 1 + (1.5 - 0.5) * r.nextDouble(), "images/voiture" + i + ".png"));
 
+        }
+        for(Voiture v : voitures) {
+            root.getChildren().add(v);
+            c.collision(scene, b, v);
+        }
+        c.moveVoiture(scene, voitures.get(0), "RIGHT");
+        c.moveVoiture(scene, voitures.get(1), "RIGHT");
+        c.moveVoiture(scene, voitures.get(2), "LEFT");
+        c.moveVoiture(scene, voitures.get(3), "LEFT");
+    }
 
-        c.update(scene, b);
+    public void enlever(Object o){
+        root.getChildren().remove(o);
+    }
 
-        //je suis un commentaire d'exemple
-
-        c.Collision(scene, b, v1);
-        c.Collision(scene, b, v2);
-        c.Collision(scene, b, v3);
-        c.Collision(scene, b, v4);
-        /*c.MoveVoiture(scene, v, "LEFT");
-        c.Collision(scene, b, v);*/
-
-        Boisson biere = new Boisson("biere");
-        Bar bar = new Bar(10, 55, 20, 20, biere ,10,"images/voiturelpok11.png");
-        b.ajouterBoisson(bar, bar.getBoisson());
-        root.getChildren().add(bar);
-
-        Client client = new Client(10, 20, 20, 20, 1, bar.getBoisson(),"images/voiturelpok11.png");
-        root.getChildren().add(client);
-
-        c.collisionClient(this,b,client);
-
-
+    public void resetRoot() {
+        for(Object o : root.getChildren()) {
+            if(o instanceof Voiture) {
+                enlever(o);
+            }
+        }
     }
 
 }
