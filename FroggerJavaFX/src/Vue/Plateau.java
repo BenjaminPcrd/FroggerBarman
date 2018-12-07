@@ -46,43 +46,19 @@ public class Plateau {
         b.getImageView().yProperty().bind(b.getRect().yProperty());*/
 
 
-        Voiture v1 = new Voiture(0, 500, 200, 100, 2.2, "images/voiture1.png");
-        Voiture v2 = new Voiture(0, 375, 200, 100, 2.7, "images/voiture2.png");
-        Voiture v3 = new Voiture(0, 250, 200, 100, 2.8, "images/voiture3.png");
-        Voiture v4 = new Voiture(0, 125, 200, 100, 2.4, "images/voiture4.png");
-
-
-        root.getChildren().add(v1);
-        root.getChildren().add(v2);
-        root.getChildren().add(v3);
-        root.getChildren().add(v4);
-
-        c.MoveVoiture(scene, v1, "RIGHT");
-        c.MoveVoiture(scene, v2, "RIGHT");
-        c.MoveVoiture(scene, v3, "LEFT");
-        c.MoveVoiture(scene, v4, "LEFT");
-
-
         c.update(scene, b);
 
-        //je suis un commentaire d'exemple
-
-        c.Collision(scene, b, v1);
-        c.Collision(scene, b, v2);
-        c.Collision(scene, b, v3);
-        c.Collision(scene, b, v4);
-        /*c.MoveVoiture(scene, v, "LEFT");
-        c.Collision(scene, b, v);*/
 
         Boisson biere = new Boisson("biere");
-        Bar bar = new Bar(10, 55, 20, 20, biere ,10,"images/voiturelpok11.png");
-        b.ajouterBoisson(bar, bar.getBoisson());
+        Bar bar = new Bar(200, scene.getHeight()-60, 50, 50, biere, 10,"images/bar55.png");
+        //b.ajouterBoisson(bar, bar.getBoisson());
         root.getChildren().add(bar);
 
-        Client client = new Client(10, 20, 20, 20, 1, bar.getBoisson(),"images/voiturelpok11.png");
+        Client client = new Client(10, scene.getHeight()-50, 50, 50, 1, bar.getBoisson(),"images/loic45.png");
         root.getChildren().add(client);
 
         c.collisionClient(this,b,client);
+        c.collisionBar(scene, b,bar);
 
 
     }
