@@ -43,26 +43,11 @@ public class Plateau {
         b.getImageView().xProperty().bind(b.getRect().xProperty());
         b.getImageView().yProperty().bind(b.getRect().yProperty());*/
 
+<<<<<<< HEAD
         level1(scene, c, b);
-
-        c.update(scene, b);
-
-
-        Boisson biere = new Boisson("biere");
-        Bar bar = new Bar(199, scene.getHeight()-60, 50, 50, biere, 10,"images/bar55.png");
-        //b.ajouterBoisson(bar, bar.getBoisson());
-        root.getChildren().add(bar);
-
-        Client client = new Client(9, scene.getHeight()-50, 50, 50, 1, bar.getBoisson(),"images/loic45.png");
-        root.getChildren().add(client);
-
-        c.collisionClient(this,b,client);
-        c.collisionBar(scene, b,bar);
 
 
     }
-
-
 
     public void level1(Scene scene, Controller c, Barman b) {
         int nbVoiture = 4;
@@ -81,6 +66,22 @@ public class Plateau {
         c.moveVoiture(scene, voitures.get(2), "LEFT");
         c.moveVoiture(scene, voitures.get(3), "LEFT");
     }
+=======
+
+        c.update(scene, b);
+
+
+        Boisson biere = new Boisson("biere");
+        Bar bar = new Bar(200, scene.getHeight()-60, 50, 50, biere, 10,"images/bar55.png");
+        //b.ajouterBoisson(bar, bar.getBoisson());
+        root.getChildren().add(bar);
+
+        Client client = new Client(10, scene.getHeight()-50, 50, 50, 1, bar.getBoisson(),"images/loic45.png");
+        root.getChildren().add(client);
+
+        c.collisionClient(this,b,client);
+        c.collisionBar(scene, b,bar);
+>>>>>>> leseguin
 
     public void enlever(Object o){
         root.getChildren().remove(o);
@@ -95,4 +96,3 @@ public class Plateau {
     }
 
 }
-

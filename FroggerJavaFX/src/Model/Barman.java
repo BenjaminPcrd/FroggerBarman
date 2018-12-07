@@ -27,12 +27,14 @@ public class Barman extends Personnage {
         }
     }
 
-    public void enleverBoisson(Boisson b) throws Exception {
+    public boolean enleverBoisson(Boisson b) throws Exception {
         if(plateau.contains(b)) {
             plateau.remove(b);
+            return true;
         } else {
             throw new Exception("la boisson n'est pas sur le plateau");
         }
+
     }
 
     public void viderPlateau() {
