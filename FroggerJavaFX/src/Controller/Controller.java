@@ -61,9 +61,8 @@ public class Controller {
                 case LEFT:
                     left = true;
                     break;
-                case SPACE:
+               case SPACE:
                     space = true;
-
             }
         });
         scene.setOnKeyReleased(event -> {
@@ -82,6 +81,8 @@ public class Controller {
                     break;
                 case SPACE:
                     space = false;
+
+
             }
         });
     }
@@ -121,6 +122,7 @@ public class Controller {
             }
         };
         collision.start();
+
     }
 
     public void collisionClient(Plateau p, Barman b, Client client){
@@ -150,21 +152,21 @@ public class Controller {
     public void collisionBar(Scene scene, Barman b, Bar bar){
 
         AnimationTimer collision = new AnimationTimer() {
+
             @Override
             public void handle(long l) {
-                if(b.getRect().intersects(bar.getRect().getBoundsInLocal())) {
-                    if (space){
-                        prendreBoisson(b, bar);
+                    if(b.getRect().intersects(bar.getRect().getBoundsInLocal())) {
+                        if(space){
+                           prendreBoisson(b, bar);
+                           space = false;
+                        }
                     }
-                }
             }
-
         };
         collision.start();
-        //evenementClavier(scene);
     }
 
-    public void prendreBoisson(Barman b, Bar bar){
+    private void prendreBoisson(Barman b, Bar bar){
         try {
             b.ajouterBoisson(bar, bar.getBoisson());
             System.out.println("Boisson ajoutée");
