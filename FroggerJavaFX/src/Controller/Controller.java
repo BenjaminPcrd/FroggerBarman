@@ -3,10 +3,13 @@ package Controller;
 import Model.*;
 import Vue.Plateau;
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 
 public class Controller {
-    private boolean up, down, left, right;
+    private boolean up, down, left, right, space;
     private double latence = 200;
 
     public Controller() {
@@ -14,6 +17,7 @@ public class Controller {
         this.down = false;
         this.left = false;
         this.right = false;
+        this.space = false;
     }
 
     public void update(Scene scene, Barman b) {
@@ -35,6 +39,14 @@ public class Controller {
             }
         };
         move.start();
+        evenementClavier(scene);
+    }
+
+    public void evenementClavier(Scene scene){
+        this.up = false;
+        this.down = false;
+        this.left = false;
+        this.right = false;
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case UP:
@@ -49,6 +61,9 @@ public class Controller {
                 case LEFT:
                     left = true;
                     break;
+                case SPACE:
+                    space = true;
+
             }
         });
         scene.setOnKeyReleased(event -> {
@@ -65,11 +80,15 @@ public class Controller {
                 case LEFT:
                     left = false;
                     break;
+                case SPACE:
+                    space = false;
             }
         });
     }
 
-    public void MoveVoiture(Scene scene, Voiture v, String direction) {
+
+
+    public void moveVoiture(Scene scene, Voiture v, String direction) {
         AnimationTimer move = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -92,7 +111,7 @@ public class Controller {
         move.start();
     }
 
-    public void Collision(Scene scene, Barman b, Voiture v) {
+    public void collision(Scene scene, Barman b, Voiture v) {
         AnimationTimer collision = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -106,21 +125,51 @@ public class Controller {
 
     public void collisionClient(Plateau p, Barman b, Client client){
         AnimationTimer collision = new AnimationTimer() {
+
+            boolean pris = false;
             @Override
             public void handle(long l) {
-                if(b.getRect().intersects(client.getRect().getBoundsInLocal())){
-                    try {
-                        b.enleverBoisson(client.getBoisson());
-                        System.out.println("OUIIIIIIIIIIIIIII");
-                        p.enlever(client);
+                if (!pris)  {
+                    if (b.getRect().intersects(client.getRect().getBoundsInLocal())) {
+                        try {
+                            pris = b.enleverBoisson(client.getBoisson());
+                            System.out.println("boisson prise");
+                            p.enlever(client);
 
 
-                    } catch (Exception e){
-                        System.out.println(e.getMessage());
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
                 }
             }
         };
         collision.start();
+    }
+
+    public void collisionBar(Scene scene, Barman b, Bar bar){
+
+        AnimationTimer collision = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                if(b.getRect().intersects(bar.getRect().getBoundsInLocal())) {
+                    if (space){
+                        prendreBoisson(b, bar);
+                    }
+                }
+            }
+
+        };
+        collision.start();
+        //evenementClavier(scene);
+    }
+
+    public void prendreBoisson(Barman b, Bar bar){
+        try {
+            b.ajouterBoisson(bar, bar.getBoisson());
+            System.out.println("Boisson ajoutée");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
