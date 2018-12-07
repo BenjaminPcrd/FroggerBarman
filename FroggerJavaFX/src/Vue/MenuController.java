@@ -12,7 +12,7 @@ public class MenuController {
 
     public void buttonJouer(ActionEvent actionEvent) {
         Stage primaryStage = (Stage)((Button) actionEvent.getSource()).getScene().getWindow();
-        Plateau p = new Plateau();
+        Plateau p = new Plateau(1);
         try {
             p.start(primaryStage);
         } catch (Exception e) {
@@ -20,8 +20,5 @@ public class MenuController {
         }
     }
 
-    public void buttonDifficulte(ActionEvent actionEvent) {
-        Stage primaryStage = (Stage)((Button) actionEvent.getSource()).getScene().getWindow();
-    }
 
 }

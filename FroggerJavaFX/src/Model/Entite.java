@@ -22,11 +22,13 @@ public abstract class Entite extends Group {
         this.rect.setY(y);
         this.getChildren().add(rect);
         try {
-            imageView = new ImageView(new Image(new FileInputStream(imgPath)));
-            imageView.setFitWidth(w);
-            imageView.setFitHeight(h);
-            this.getChildren().add(imageView);
+            this.imageView = new ImageView(new Image(new FileInputStream(imgPath)));
+            this.imageView.setFitWidth(w);
+            this.imageView.setFitHeight(h);
+            this.getChildren().add(this.imageView);
             this.rect.setVisible(false);
+            /*this.imageView.setX(x);
+            this.imageView.setY(y);
             /*imageView.xProperty().bind(rect.xProperty());
             imageView.yProperty().bind(rect.yProperty());*/
         } catch (Exception e) {
@@ -44,16 +46,8 @@ public abstract class Entite extends Group {
         return imageView;
     }
 
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
-    }
-
     public Rectangle getRect() {
         return rect;
-    }
-
-    public void setRect(Rectangle rect) {
-        this.rect = rect;
     }
 
     public abstract void move(String mouvement);

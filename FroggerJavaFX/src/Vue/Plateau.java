@@ -19,8 +19,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Plateau {
-
     private Group root;
+    private int level;
+
+    public Plateau(int level) {
+        this.level = level;
+    }
 
     public void start(Stage primaryStage) throws Exception {
         root = new Group();
@@ -38,7 +42,7 @@ public class Plateau {
         Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 0.7, "images/loic.png");
         root.getChildren().add(b);
         c.update(scene, b);
-       /*b.getRect().xProperty().bind(b.getImageView().xProperty());
+        /*b.getRect().xProperty().bind(b.getImageView().xProperty());
         b.getRect().yProperty().bind(b.getImageView().yProperty());
         b.getImageView().xProperty().bind(b.getRect().xProperty());
         b.getImageView().yProperty().bind(b.getRect().yProperty());*/
@@ -49,11 +53,11 @@ public class Plateau {
 
 
         Boisson biere = new Boisson("biere");
-        Bar bar = new Bar(199, scene.getHeight()-60, 50, 50, biere, 10,"images/bar55.png");
+        Bar bar = new Bar(199, scene.getHeight()-60, 50, 50, biere, 10,"images/bar.png");
         //b.ajouterBoisson(bar, bar.getBoisson());
         root.getChildren().add(bar);
 
-        Client client = new Client(9, scene.getHeight()-50, 50, 50, 1, bar.getBoisson(),"images/loic45.png");
+        Client client = new Client(9, scene.getHeight()-50, 50, 50, 1, bar.getBoisson(),"images/loic.png");
         root.getChildren().add(client);
 
         c.collisionClient(this,b,client);
