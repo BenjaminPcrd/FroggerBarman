@@ -8,8 +8,8 @@ public class Barman extends Personnage {
     private ArrayList<Boisson> plateau;
     private double speed;
 
-    public Barman(double x, double y, double w, double h, double speed, String imgPath) {
-        super(x, y, w, h, speed, imgPath);
+    public Barman(Mediator m, double x, double y, double w, double h, double speed, String imgPath) {
+        super(m, x, y, w, h, speed, imgPath);
         this.plateau = new ArrayList<>();
 
     }
