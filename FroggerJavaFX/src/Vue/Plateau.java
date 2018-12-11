@@ -1,11 +1,7 @@
 package Vue;
 
 import Controller.Controller;
-import Model.Barman;
-import Model.Boisson;
-import Model.Voiture;
-import Model.Client;
-import Model.Bar;
+import Model.*;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -20,6 +16,7 @@ import java.util.Random;
 
 public class Plateau {
     private Group root;
+    private ApplicationMediator mediator;
     private int level;
 
     public Plateau(int level) {
@@ -34,12 +31,15 @@ public class Plateau {
         primaryStage.setResizable(false);
         primaryStage.show();
 
+        mediator = new ApplicationMediator();
+
         ImageView background = new ImageView(new Image(new FileInputStream("images/fond.png")));
         root.getChildren().add(background);
 
         Controller c = new Controller();
 
-        Barman b = new Barman(scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 0.7, "images/loic.png");
+        Barman b = new Barman(mediator, scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 0.7, "images/loic.png");
+        mediator.ajouterEntite(b);
         root.getChildren().add(b);
         c.update(scene, b);
         /*b.getRect().xProperty().bind(b.getImageView().xProperty());
@@ -53,16 +53,17 @@ public class Plateau {
 
 
         Boisson biere = new Boisson("biere");
-        Bar bar = new Bar(199, scene.getHeight()-60, 50, 50, biere, 10,"images/bar.png");
+        Bar bar = new Bar(mediator, 199, scene.getHeight()-60, 50, 50, biere, 10,"images/bar.png");
         //b.ajouterBoisson(bar, bar.getBoisson());
+        mediator.ajouterEntite(bar);
         root.getChildren().add(bar);
 
-        Client client = new Client(9, scene.getHeight()-50, 50, 50, 1, bar.getBoisson(),"images/loic.png");
+        Client client = new Client(mediator, 9, scene.getHeight()-50, 50, 50, 1, bar.getBoisson(),"images/loic.png");
+        mediator.ajouterEntite(client);
         root.getChildren().add(client);
 
-        c.collisionClient(this,b,client);
-        c.collisionBar(scene, b,bar);
-
+        c.collisionClient(this, b);
+        c.collisionBar(scene, b);
 
     }
 
@@ -73,13 +74,16 @@ public class Plateau {
         Random r = new Random();
         List<Voiture> voitures = new ArrayList<>();
         for(int i = 1; i <= nbVoiture; i++) {
-            voitures.add(new Voiture(i * 200, 125 * i, 200, 100, 1 + (1.5 - 0.5) * r.nextDouble(), "images/voiture" + i + ".png"));
+            voitures.add(new Voiture(mediator, i * 200, 125 * i, 200, 100, 1 + (1.5 - 0.5) * r.nextDouble(), "images/voiture" + i + ".png"));
 
         }
         for(Voiture v : voitures) {
+            mediator.ajouterEntite(v);
             root.getChildren().add(v);
-            c.collision(scene, b, v);
         }
+
+        c.collisionObstacle(scene, b);
+
         c.moveVoiture(scene, voitures.get(0), "RIGHT");
         c.moveVoiture(scene, voitures.get(1), "RIGHT");
         c.moveVoiture(scene, voitures.get(2), "LEFT");

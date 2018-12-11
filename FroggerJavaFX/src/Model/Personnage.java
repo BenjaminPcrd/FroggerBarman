@@ -4,8 +4,8 @@ public class Personnage extends Entite {
 
     private double speed;
 
-    public Personnage(double x, double y, double w, double h, double speed, String imgPath) {
-        super(x, y, w, h, imgPath);
+    public Personnage(Mediator m, double x, double y, double w, double h, double speed, String imgPath) {
+        super(m, x, y, w, h, imgPath);
         this.speed = speed;
         if (this.getImageView() != null) {
             this.getImageView().setY(this.getRect().getY());

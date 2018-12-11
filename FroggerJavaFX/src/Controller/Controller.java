@@ -112,11 +112,14 @@ public class Controller {
         move.start();
     }
 
-    public void collision(Scene scene, Barman b, Voiture v) {
+    public void collisionObstacle(Scene scene, Barman b) {
         AnimationTimer collision = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if(b.getRect().intersects(v.getRect().getBoundsInLocal())){
+                /*if(b.getRect().intersects(v.getRect().getBoundsInLocal())){
+                    b.resetPos(scene.getWidth()/2-25, scene.getHeight()-50);
+                }*/
+                if(b.getMediator().collisionObstacle(b) != null) {
                     b.resetPos(scene.getWidth()/2-25, scene.getHeight()-50);
                 }
             }
@@ -125,14 +128,15 @@ public class Controller {
 
     }
 
-    public void collisionClient(Plateau p, Barman b, Client client){
+    public void collisionClient(Plateau p, Barman b){
         AnimationTimer collision = new AnimationTimer() {
 
             boolean pris = false;
             @Override
             public void handle(long l) {
                 if (!pris)  {
-                    if (b.getRect().intersects(client.getRect().getBoundsInLocal())) {
+                    if (b.getMediator().collisionClient(b) != null) {
+                        Client client = (Client)b.getMediator().collisionClient(b);
                         try {
                             pris = b.enleverBoisson(client.getBoisson());
                             System.out.println("boisson prise");
@@ -149,13 +153,14 @@ public class Controller {
         collision.start();
     }
 
-    public void collisionBar(Scene scene, Barman b, Bar bar){
+    public void collisionBar(Scene scene, Barman b){
 
         AnimationTimer collision = new AnimationTimer() {
 
             @Override
             public void handle(long l) {
-                    if(b.getRect().intersects(bar.getRect().getBoundsInLocal())) {
+                    if(b.getMediator().collisionBar(b) != null) {
+                        Bar bar = (Bar)b.getMediator().collisionBar(b);
                         if(space){
                            prendreBoisson(b, bar);
                            space = false;

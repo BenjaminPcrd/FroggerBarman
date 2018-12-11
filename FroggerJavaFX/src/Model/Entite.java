@@ -11,8 +11,10 @@ import java.io.FileInputStream;
 public abstract class Entite extends Group {
     private Rectangle rect;
     private ImageView imageView;
+    private Mediator mediator;
 
-    public Entite(double x, double y, double w, double h, String imgPath) {
+    public Entite(Mediator m, double x, double y, double w, double h, String imgPath) {
+        this.mediator = m;
         this.rect = new Rectangle();
         this.rect.setWidth(w - 20);
         this.rect.setHeight(h - 20);
@@ -27,7 +29,7 @@ public abstract class Entite extends Group {
             this.imageView.setFitHeight(h);
             this.getChildren().add(this.imageView);
             this.rect.setVisible(false);
-            /*this.imageView.setX(x);
+            this.imageView.setX(x);
             this.imageView.setY(y);
             /*imageView.xProperty().bind(rect.xProperty());
             imageView.yProperty().bind(rect.yProperty());*/
@@ -40,7 +42,9 @@ public abstract class Entite extends Group {
 
     }
 
-
+    public Mediator getMediator() {
+        return mediator;
+    }
 
     public ImageView getImageView() {
         return imageView;

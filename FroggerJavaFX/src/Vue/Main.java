@@ -22,7 +22,8 @@ public class Main extends Application {
     }
 
     public void test() {
-        Boisson b1 = new Boisson("Biere");
+
+        /*Boisson b1 = new Boisson("Biere");
         Boisson b2 = new Boisson("Coca");
         Bar barBiere = new Bar(0, 0, 0, 0, b1, 10, null);
         Bar barCoca = new Bar(0, 0, 0, 0, b2, 10, null);
@@ -41,7 +42,7 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
         System.out.println(barBiere.getNbBoisson());
-        System.out.println(loic.getPlateau());
+        System.out.println(loic.getPlateau());*/
     }
 
 

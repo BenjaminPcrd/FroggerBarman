@@ -4,8 +4,8 @@ public class Bar extends Entite {
     private Boisson boisson;
     private int nbBoisson;
 
-    public Bar(double x, double y, double w, double h, Boisson boisson, int nbBoisson, String imgPath) {
-        super(x, y, w, h, imgPath);
+    public Bar(Mediator m, double x, double y, double w, double h, Boisson boisson, int nbBoisson, String imgPath) {
+        super(m, x, y, w, h, imgPath);
         this.boisson = boisson;
         this.nbBoisson = nbBoisson;
     }

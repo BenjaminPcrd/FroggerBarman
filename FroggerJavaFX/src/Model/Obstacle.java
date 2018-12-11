@@ -3,8 +3,8 @@ package Model;
 public class Obstacle extends Entite {
     private double speed;
 
-    public Obstacle(double x, double y, double w, double h, double speed, String imgPath) {
-        super(x, y, w, h, imgPath);
+    public Obstacle(Mediator m, double x, double y, double w, double h, double speed, String imgPath) {
+        super(m, x, y, w, h, imgPath);
         this.speed = speed;
     }
 
