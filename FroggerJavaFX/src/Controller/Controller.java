@@ -20,7 +20,7 @@ public class Controller {
         this.space = false;
     }
 
-    public void update(Scene scene, Barman b) {
+    public void updateBarman(Scene scene, Barman b) {
         AnimationTimer move = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -39,50 +39,29 @@ public class Controller {
             }
         };
         move.start();
-        evenementClavier(scene);
     }
 
-    public void evenementClavier(Scene scene){
+    public void setEvenementClavier(Scene scene){
         this.up = false;
         this.down = false;
         this.left = false;
         this.right = false;
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case UP:
-                    up = true;
-                    break;
-                case DOWN:
-                    down = true;
-                    break;
-                case RIGHT:
-                    right = true;
-                    break;
-                case LEFT:
-                    left = true;
-                    break;
-               case SPACE:
-                    space = true;
+                case UP: up = true; break;
+                case DOWN: down = true; break;
+                case RIGHT: right = true; break;
+                case LEFT: left = true; break;
+                case SPACE: space = true; break;
             }
         });
         scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
-                case UP:
-                    up = false;
-                    break;
-                case DOWN:
-                    down = false;
-                    break;
-                case RIGHT:
-                    right = false;
-                    break;
-                case LEFT:
-                    left = false;
-                    break;
-                case SPACE:
-                    space = false;
-
-
+                case UP: up = false; break;
+                case DOWN: down = false; break;
+                case RIGHT: right = false; break;
+                case LEFT: left = false; break;
+                case SPACE: space = false; break;
             }
         });
     }
@@ -116,9 +95,6 @@ public class Controller {
         AnimationTimer collision = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                /*if(b.getRect().intersects(v.getRect().getBoundsInLocal())){
-                    b.resetPos(scene.getWidth()/2-25, scene.getHeight()-50);
-                }*/
                 if(b.getMediator().collisionObstacle(b) != null) {
                     b.resetPos(scene.getWidth()/2-25, scene.getHeight()-50);
                 }
@@ -130,7 +106,6 @@ public class Controller {
 
     public void collisionClient(Plateau p, Barman b){
         AnimationTimer collision = new AnimationTimer() {
-
             boolean pris = false;
             @Override
             public void handle(long l) {
@@ -154,7 +129,6 @@ public class Controller {
     }
 
     public void collisionBar(Scene scene, Barman b){
-
         AnimationTimer collision = new AnimationTimer() {
 
             @Override
