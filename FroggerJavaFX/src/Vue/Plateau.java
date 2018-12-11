@@ -37,19 +37,18 @@ public class Plateau {
         root.getChildren().add(background);
 
         Controller c = new Controller();
+        c.setEvenementClavier(scene);
 
-        Barman b = new Barman(mediator, scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 0.7, "images/loic.png");
+        Barman b = new Barman(mediator, scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, 1.4, "images/loic.png");
         mediator.ajouterEntite(b);
         root.getChildren().add(b);
-        c.update(scene, b);
+        c.updateBarman(scene, b);
         /*b.getRect().xProperty().bind(b.getImageView().xProperty());
         b.getRect().yProperty().bind(b.getImageView().yProperty());
         b.getImageView().xProperty().bind(b.getRect().xProperty());
         b.getImageView().yProperty().bind(b.getRect().yProperty());*/
 
         level1(scene, c, b);
-
-        c.update(scene, b);
 
 
         Boisson biere = new Boisson("biere");
@@ -66,8 +65,6 @@ public class Plateau {
         c.collisionBar(scene, b);
 
     }
-
-
 
     public void level1(Scene scene, Controller c, Barman b) {
         int nbVoiture = 4;
