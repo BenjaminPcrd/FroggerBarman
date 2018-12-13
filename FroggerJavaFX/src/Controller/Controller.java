@@ -20,20 +20,59 @@ public class Controller {
         this.space = false;
     }
 
+
+    public void moveClientArrive(Client c, double x, double y) {
+        AnimationTimer move = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                c.move("RIGHT");
+                if (c.getRect().getX() > x) {
+                    c.getRect().setX(x);
+                    this.stop();
+                    c.move("UP");
+                    this.start();
+                    if(c.getRect().getY() < y){
+                        c.getRect().setY(y);
+                    }
+
+                }
+
+
+            }
+        };
+        move.start();
+    }
+
+    public void moveClientGo(Client c, Scene scene, Plateau p){
+        AnimationTimer move = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                c.move("LEFT");
+                if(c.getRect().getX() > 0){
+                    c.getRect().setX(0);
+                    // p.enlever(c);
+                }
+            }
+        };
+        move.start();
+
+    }
+
     public void updateBarman(Scene scene, Barman b) {
         AnimationTimer move = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (up && b.getRect().getY() > 0) {
+
+                if (up && b.getRect().getY() > 0 || b.getMediator().collisionTerrePlein(b) != null) {
                     b.move("UP");
                 }
-                if (down && b.getRect().getY() < scene.getHeight() - b.getRect().getHeight()) {
+                if (down && b.getRect().getY() < scene.getHeight() - b.getRect().getHeight() || b.getMediator().collisionTerrePlein(b) != null) {
                     b.move("DOWN");
                 }
-                if (left && b.getRect().getX() > 0) {
+                if (left && b.getRect().getX() > 0 || b.getMediator().collisionTerrePlein(b) != null) {
                     b.move("LEFT");
                 }
-                if (right && b.getRect().getX() < scene.getWidth() - b.getRect().getWidth()) {
+                if (right && b.getRect().getX() < scene.getWidth() - b.getRect().getWidth() || b.getMediator().collisionTerrePlein(b) != null) {
                     b.move("RIGHT");
                 }
             }
@@ -95,7 +134,7 @@ public class Controller {
         AnimationTimer collision = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if(b.getMediator().collisionObstacle(b) != null) {
+                if(b.getMediator().collisionVoiture(b) != null) {
                     b.resetPos(scene.getWidth()/2-25, scene.getHeight()-50);
                 }
             }
@@ -104,7 +143,7 @@ public class Controller {
 
     }
 
-    public void collisionClient(Plateau p, Barman b){
+    public void collisionClient(Plateau p, Scene scene, Barman b){
         AnimationTimer collision = new AnimationTimer() {
             boolean pris = false;
             @Override
@@ -114,8 +153,9 @@ public class Controller {
                         Client client = (Client)b.getMediator().collisionClient(b);
                         try {
                             pris = b.enleverBoisson(client.getBoisson());
+                            moveClientGo(client, scene, p);
                             System.out.println("boisson prise");
-                            p.enlever(client);
+                           // p.enlever(client);
 
 
                         } catch (Exception e) {
@@ -128,7 +168,7 @@ public class Controller {
         collision.start();
     }
 
-    public void collisionBar(Scene scene, Barman b){
+    public void collisionBar(Barman b){
         AnimationTimer collision = new AnimationTimer() {
 
             @Override
@@ -136,7 +176,12 @@ public class Controller {
                     if(b.getMediator().collisionBar(b) != null) {
                         Bar bar = (Bar)b.getMediator().collisionBar(b);
                         if(space){
-                           prendreBoisson(b, bar);
+                            try {
+                                b.ajouterBoisson(bar, bar.getBoisson());
+                                System.out.println("Boisson ajoutée");
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
+                            }
                            space = false;
                         }
                     }
@@ -145,12 +190,18 @@ public class Controller {
         collision.start();
     }
 
-    private void prendreBoisson(Barman b, Bar bar){
-        try {
-            b.ajouterBoisson(bar, bar.getBoisson());
-            System.out.println("Boisson ajoutée");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    public void collisionTerrePlein(Scene scene, Barman b){
+        AnimationTimer collision = new AnimationTimer() {
+
+            @Override
+            public void handle(long l) {
+                if(b.getMediator().collisionBar(b) != null) {
+                    //TerrePlein tp = (TerrePlein) b.getMediator().collisionTerrePlein(b);
+
+                }
+            }
+        };
+        collision.start();
+
     }
 }

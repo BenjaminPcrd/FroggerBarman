@@ -22,9 +22,9 @@ public class ApplicationMediator implements Mediator {
     }
 
     @Override
-    public Entite collisionObstacle(Entite e) {
+    public Entite collisionVoiture(Entite e) {
         for (Entite entite : entites) {
-            if (e.getRect().intersects(entite.getBoundsInLocal()) && entite != e && entite instanceof Obstacle) {
+            if (e.getRect().intersects(entite.getBoundsInLocal()) && entite != e && entite instanceof Voiture) {
                 return entite;
             }
         }
@@ -45,6 +45,16 @@ public class ApplicationMediator implements Mediator {
     public Entite collisionClient(Entite e) {
         for (Entite entite : entites) {
             if (e.getRect().intersects(entite.getBoundsInLocal()) && entite != e && entite instanceof Client) {
+                return entite;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Entite collisionTerrePlein(Entite e){
+        for (Entite entite : entites) {
+            if (e.getRect().intersects(entite.getBoundsInLocal()) && entite != e && entite instanceof TerrePlein) {
                 return entite;
             }
         }
