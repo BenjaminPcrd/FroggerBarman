@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
+
 public class Controller {
     private boolean up, down, left, right, space;
     private double latence = 200;
@@ -107,11 +109,11 @@ public class Controller {
 
 
 
-    public void moveVoiture(Scene scene, Voiture v, String direction) {
+    public void moveVoiture(Scene scene, Voiture v) {
         AnimationTimer move = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                switch(direction) {
+                switch(v.getDirection()) {
                     case "LEFT":
                         v.move("LEFT");
                         if (v.getRect().getX() < 0 - v.getRect().getWidth() - latence) {
@@ -142,6 +144,24 @@ public class Controller {
         collision.start();
 
     }
+
+    public void collisionEntreVoiture(Scene scene, ArrayList<Voiture> voitures) {
+        AnimationTimer collision = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                for(Voiture v : voitures) {
+                    if(v.getMediator().collisionVoiture(v) != null) {
+                        Voiture v2 = (Voiture)v.getMediator().collisionVoiture(v);
+                        //v.setSpeed(v.getSpeed() - 0.5);
+                        v2.setSpeed(v2.getSpeed() + 0.5);
+                    }
+                }
+            }
+        };
+        collision.start();
+    }
+
+
 
     public void collisionClient(Plateau p, Scene scene, Barman b){
         AnimationTimer collision = new AnimationTimer() {
