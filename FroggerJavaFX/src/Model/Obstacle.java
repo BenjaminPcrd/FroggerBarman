@@ -30,4 +30,20 @@ public class Obstacle extends Entite {
                 break;
         }
     }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public void changerVitesse() {
+        if(speed < 0.5) {
+            speed += 0.3;
+        } else {
+            speed -= 0.3;
+        }
+    }
 }
