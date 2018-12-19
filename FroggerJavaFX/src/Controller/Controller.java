@@ -158,15 +158,46 @@ public class Controller {
 
     }
 
-    public void collisionEntreVoiture(Scene scene, ArrayList<Voiture> voitures) {
+    public void collisionEntreVoiture(Scene scene, ArrayList<Voiture> voitures, double ecart, double max, double min) {
         AnimationTimer collision = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                /*for(Voiture v : voitures) { mode bourré
+                    if(v.getMediator().collisionVoiture(v) != null) {
+                        this.stop();
+                        Voiture v2 = (Voiture)v.getMediator().collisionVoiture(v);
+                        if (v.getDirection() == "LEFT") {
+                            v2.setSpeed(v2.getSpeed() - ecart);
+                            v.setSpeed(v.getSpeed() + ecart);
+                        }
+                        if (v.getDirection() == "RIGHT") {
+                            v2.setSpeed(v2.getSpeed() + ecart);
+                            v.setSpeed(v.getSpeed() - ecart);
+                        }
+                        this.start();
+                    }
+                }*/
                 for(Voiture v : voitures) {
                     if(v.getMediator().collisionVoiture(v) != null) {
                         Voiture v2 = (Voiture)v.getMediator().collisionVoiture(v);
-                        //v.setSpeed(v.getSpeed() - 0.5);
-                        v2.setSpeed(v2.getSpeed() + 0.5);
+                        this.stop();
+                        switch (v.getDirection()) {
+                            case "LEFT":
+                                v2.setSpeed(Math.abs(v2.getSpeed() + ecart));
+                                v.setSpeed(Math.abs(v.getSpeed() - ecart));
+                                break;
+                            case "RIGHT":
+                                v2.setSpeed(Math.abs(v2.getSpeed() - ecart));
+                                v.setSpeed(Math.abs(v.getSpeed() + ecart));
+                                break;
+                        }
+                        if (v.getSpeed() > max || v.getSpeed() < min) {
+                            v.setSpeed(max - min);
+                        }
+                        if (v2.getSpeed() > max || v2.getSpeed() < min) {
+                            v2.setSpeed(max - min);
+                        }
+                        this.start();
                     }
                 }
             }
