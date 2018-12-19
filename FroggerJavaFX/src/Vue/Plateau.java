@@ -67,20 +67,26 @@ public class Plateau {
 
 
 
-
-
-        /*Boisson biere = new Boisson("biere");
+        Boisson biere = new Boisson("biere");
         Bar bar = new Bar(mediator, 199, scene.getHeight()-60, 50, 50, biere, 10,"images/bar.png");
         //b.ajouterBoisson(bar, bar.getBoisson());
         mediator.ajouterEntite(bar);
         root.getChildren().add(bar);
+        Random rClient = new Random();
+        double valeurMin = 20;
+        double valeurMax = 1260;
+        for(int i = 1 ; i<= 10; i++){
+            Client client = new Client(mediator, -1500 + (-50 - -1500 ) * rClient.nextDouble(), scene.getHeight()-670, 50, 50, 1, bar.getBoisson(),"images/loic.png");
+            mediator.ajouterEntite(client);
+            root.getChildren().add(client);
 
-        Client client = new Client(mediator, 9, scene.getHeight()-50, 50, 50, 1, bar.getBoisson(),"images/loic.png");
-        mediator.ajouterEntite(client);
-        root.getChildren().add(client);
+            double valeur = valeurMin + (valeurMax - valeurMin ) * rClient.nextDouble();
+            controller.moveClientArrive(client, valeur, 0);
+        }
 
-        c.collisionClient(this, b);
-        c.collisionBar(scene, b);*/
+
+        controller.collisionClient(this, barman, mediator);
+        controller.collisionBar(barman);
 
     }
 
