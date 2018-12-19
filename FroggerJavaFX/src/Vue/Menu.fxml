@@ -21,7 +21,7 @@
                     <String fx:value="Facile" />
                     <String fx:value="Normal" />
                     <String fx:value="Hardcore" />
-                    <String fx:value="Bouré" />
+                    <String fx:value="DrunkMode" />
                 </FXCollections>
             </items>
         </ChoiceBox>
