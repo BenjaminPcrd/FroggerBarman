@@ -45,7 +45,6 @@ public class Controller {
             }
         };
         move.start();
-
     }
 
     private void moveClientGo(Client c, double x, double y){
@@ -251,20 +250,5 @@ public class Controller {
             }
         };
         collision.start();
-    }
-
-    public void collisionTerrePlein(Scene scene, Barman b){
-        AnimationTimer collision = new AnimationTimer() {
-
-            @Override
-            public void handle(long l) {
-                if(b.getMediator().collisionBar(b) != null) {
-                    //TerrePlein tp = (TerrePlein) b.getMediator().collisionTerrePlein(b);
-
-                }
-            }
-        };
-        collision.start();
-
     }
 }

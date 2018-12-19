@@ -56,22 +56,54 @@ public class Plateau {
         switch((String)lvlProperty().get()) {
             case "Facile":
                 System.out.println("Facile");
-                Niveau facile = new Niveau(1, 4, 0.5, 1, false, 2, 5, mediator, root, controller, scene);
+                Niveau facile = new Niveau(
+                        1,
+                        4,
+                        0.5,
+                        1,
+                        false,
+                        2,
+                        5,
+                        mediator, root, controller, scene);
                 facile.generer();
                 break;
             case "Normal":
                 System.out.println("Normal");
-                Niveau normal = new Niveau(0.7, 6, 0.7, 1.5, false, 2, 8, mediator, root, controller, scene);
+                Niveau normal = new Niveau(
+                        0.7,
+                        6,
+                        0.7,
+                        1.5,
+                        false,
+                        2,
+                        8,
+                        mediator, root, controller, scene);
                 normal.generer();
                 break;
             case "Hardcore":
                 System.out.println("Hardcore");
-                Niveau hardcore = new Niveau(0.7, 8, 1, 2, true, 2, 15, mediator, root, controller, scene);
+                Niveau hardcore = new Niveau(
+                        0.7,
+                        8,
+                        1,
+                        2,
+                        true,
+                        2,
+                        15,
+                        mediator, root, controller, scene);
                 hardcore.generer();
                 break;
             case "DrunkMode":
                 System.out.println("DrunkMode");
-                Niveau drunkMode = new Niveau(0.5, 8, 1.7, 2.7, true, 2, 20, mediator, root, controller, scene);
+                Niveau drunkMode = new Niveau(
+                        0.5,
+                        8,
+                        1.7,
+                        2.7,
+                        true,
+                        2,
+                        20,
+                        mediator, root, controller, scene);
                 drunkMode.generer();
                 break;
         }
