@@ -35,28 +35,41 @@ public class Controller {
                     this.start();
                     if(c.getRect().getY() < y){
                         c.getRect().setY(y);
+                        this.stop();
                     }
 
                 }
 
 
+
             }
         };
         move.start();
+
     }
 
-    public void moveClientGo(Client c, Scene scene, Plateau p){
-        AnimationTimer move = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                c.move("LEFT");
-                if(c.getRect().getX() > 0){
-                    c.getRect().setX(0);
-                    // p.enlever(c);
-                }
-            }
-        };
-        move.start();
+    private void moveClientGo(Client c, double x, double y){
+
+                AnimationTimer move = new AnimationTimer() {
+                    @Override
+                    public void handle(long now) {
+                        c.move("DOWN");
+                        if (c.getRect().getY() > y) {
+                            c.getRect().setY(y);
+                            this.stop();
+                            c.move("LEFT");
+                            this.start();
+                            if(c.getRect().getX() < x){
+                                c.getRect().setX(x);
+                                this.stop();
+                            }
+
+                        }
+
+
+                    }
+                };
+                move.start();
 
     }
 
@@ -163,7 +176,7 @@ public class Controller {
 
 
 
-    public void collisionClient(Plateau p, Scene scene, Barman b){
+    public void collisionClient(Plateau p , Barman b, Mediator m){
         AnimationTimer collision = new AnimationTimer() {
             boolean pris = false;
             @Override
@@ -173,7 +186,8 @@ public class Controller {
                         Client client = (Client)b.getMediator().collisionClient(b);
                         try {
                             pris = b.enleverBoisson(client.getBoisson());
-                            moveClientGo(client, scene, p);
+                            m.enleverEntite(client);
+                            moveClientGo(client, -400, 60);
                             System.out.println("boisson prise");
                            // p.enlever(client);
 

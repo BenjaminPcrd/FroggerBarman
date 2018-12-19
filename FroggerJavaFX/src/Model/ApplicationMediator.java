@@ -13,12 +13,23 @@ public class ApplicationMediator implements Mediator {
         entites.add(e);
     }
 
-    public void enleverEntite(Entite e) throws Exception {
+    public void enleverEntite(Entite e) {
         if (entites.contains(e)) {
             entites.remove(e);
-        } else {
+       /* } else {
             throw new Exception("Entite non présente dans le tableau");
+        }*/
         }
+    }
+
+    @Override
+    public Entite collisionEntite(Entite e){
+        for (Entite entite : entites) {
+            if (e.getRect().intersects(entite.getBoundsInLocal()) && entite != e && entite instanceof Entite) {
+                return entite;
+            }
+        }
+        return null;
     }
 
     @Override
