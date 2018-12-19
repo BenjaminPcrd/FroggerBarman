@@ -90,6 +90,7 @@ public class Niveau extends Group {
             root.getChildren().add(t2);
         }
 
+        /*########## Génération des bars et des clients ##########*/
         Boisson biere = new Boisson("biere");
         Bar bar = new Bar(mediator, 199, scene.getHeight()-60, 50, 50, biere, 10,"images/bar.png");
         //b.ajouterBoisson(bar, bar.getBoisson());
