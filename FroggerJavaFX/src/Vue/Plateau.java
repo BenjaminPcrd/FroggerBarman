@@ -4,8 +4,11 @@ import Controller.Controller;
 import Model.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -42,6 +45,18 @@ public class Plateau {
         root.getChildren().add(background);
         controller.setEvenementClavier(scene);
 
+        Button menu = new Button("Retour au menu");
+        root.getChildren().add(menu);
+        menu.setOnAction(actionEvent -> {
+            Main main = new Main();
+            try {
+                main.start(primaryStage);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        });
+
         switch((String)lvlProperty().get()) {
             case "Facile":
                 System.out.println("Facile");
@@ -54,18 +69,16 @@ public class Plateau {
                 loadLevel(normal);
                 break;
             case "Hardcore":
-                System.out.println("Difficile");
-                Niveau hardcore = new Niveau(0.5, 8, 1, 2, 0, 2, 3);
+                System.out.println("Hardcore");
+                Niveau hardcore = new Niveau(0.7, 8, 1, 2, 0, 2, 3);
                 loadLevel(hardcore);
                 break;
-            case "Bouré":
-                System.out.println("Bouré");
-                Niveau boure = new Niveau(0.2, 8, 1.5, 2.5, 0, 2, 3);
+            case "DrunkMode":
+                System.out.println("DrunkMode");
+                Niveau boure = new Niveau(0.5, 8, 1.7, 2.7, 0, 2, 3);
                 loadLevel(boure);
                 break;
         }
-
-
 
         Boisson biere = new Boisson("biere");
         Bar bar = new Bar(mediator, 199, scene.getHeight()-60, 50, 50, biere, 10,"images/bar.png");
@@ -99,9 +112,9 @@ public class Plateau {
         for(int i = 1; i <= niveau.getNbVoitures(); i++) {
             Voiture v;
             if(index == 1 || index == 2) {
-                v = new Voiture(mediator, i * 250, 125 * index, 200, 100, min + (max - min) * r.nextDouble(),"LEFT", "images/voiture" + index + ".png");
+                v = new Voiture(mediator, i * 250, 125 * index, 200, 100, min + (max - min) * r.nextDouble(),"LEFT", "images/voiture" + (r.nextInt((6 - 1) + 1) + 1) + ".png");
             } else {
-                v = new Voiture(mediator, i * 250, 125 * index, 200, 100, min + (max - min) * r.nextDouble(), "RIGHT", "images/voiture" + index + ".png");
+                v = new Voiture(mediator, i * 250, 125 * index, 200, 100, min + (max - min) * r.nextDouble(), "RIGHT", "images/voiture" + (r.nextInt((6 - 1) + 1) + 1) + ".png");
             }
             niveau.ajouterVoiture(v);
             mediator.ajouterEntite(v);
