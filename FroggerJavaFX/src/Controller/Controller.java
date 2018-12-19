@@ -77,7 +77,6 @@ public class Controller {
         AnimationTimer move = new AnimationTimer() {
             @Override
             public void handle(long now) {
-
                 if (up && b.getRect().getY() > 0 || b.getMediator().collisionTerrePlein(b) != null) {
                     b.move("UP");
                 }
@@ -145,7 +144,7 @@ public class Controller {
         move.start();
     }
 
-    public void collisionObstacle(Scene scene, Barman b) {
+    public void collisionVoiture(Scene scene, Barman b) {
         AnimationTimer collision = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -207,7 +206,7 @@ public class Controller {
 
 
 
-    public void collisionClient(Plateau p , Barman b, Mediator m){
+    public void collisionClient(Barman b, Mediator m){
         AnimationTimer collision = new AnimationTimer() {
             boolean pris = false;
             @Override
@@ -220,7 +219,6 @@ public class Controller {
                             m.enleverEntite(client);
                             moveClientGo(client, -400, 60);
                             System.out.println("boisson prise");
-                           // p.enlever(client);
 
 
                         } catch (Exception e) {

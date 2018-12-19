@@ -4,8 +4,6 @@ import Controller.Controller;
 import Model.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,14 +12,12 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
-import java.util.Random;
 
 public class Plateau {
     private Group root;
     private Scene scene;
     private Controller controller;
     private ApplicationMediator mediator;
-    private Barman barman;
 
     private ObjectProperty lvl = new SimpleObjectProperty();
     //public final Object getLvl() { return lvl.get(); }
@@ -60,86 +56,25 @@ public class Plateau {
         switch((String)lvlProperty().get()) {
             case "Facile":
                 System.out.println("Facile");
-                Niveau facile = new Niveau(1, 4, 0.5, 1, 0, 2, 3);
-                loadLevel(facile);
+                Niveau facile = new Niveau(1, 4, 0.5, 1, false, 2, 5, mediator, root, controller, scene);
+                facile.generer();
                 break;
             case "Normal":
                 System.out.println("Normal");
-                Niveau normal = new Niveau(0.7, 6, 0.7, 1.5, 0, 2, 3);
-                loadLevel(normal);
+                Niveau normal = new Niveau(0.7, 6, 0.7, 1.5, false, 2, 8, mediator, root, controller, scene);
+                normal.generer();
                 break;
             case "Hardcore":
                 System.out.println("Hardcore");
-                Niveau hardcore = new Niveau(0.7, 8, 1, 2, 0, 2, 3);
-                loadLevel(hardcore);
+                Niveau hardcore = new Niveau(0.7, 8, 1, 2, true, 2, 15, mediator, root, controller, scene);
+                hardcore.generer();
                 break;
             case "DrunkMode":
                 System.out.println("DrunkMode");
-                Niveau boure = new Niveau(0.5, 8, 1.7, 2.7, 0, 2, 3);
-                loadLevel(boure);
+                Niveau drunkMode = new Niveau(0.5, 8, 1.7, 2.7, true, 2, 20, mediator, root, controller, scene);
+                drunkMode.generer();
                 break;
         }
-
-        Boisson biere = new Boisson("biere");
-        Bar bar = new Bar(mediator, 199, scene.getHeight()-60, 50, 50, biere, 10,"images/bar.png");
-        //b.ajouterBoisson(bar, bar.getBoisson());
-        mediator.ajouterEntite(bar);
-        root.getChildren().add(bar);
-        Random rClient = new Random();
-        double valeurMin = 20;
-        double valeurMax = 1260;
-        for(int i = 1 ; i<= 10; i++){
-            Client client = new Client(mediator, -1500 + (-50 - -1500 ) * rClient.nextDouble(), scene.getHeight()-670, 50, 50, 1, bar.getBoisson(),"images/loic.png");
-            mediator.ajouterEntite(client);
-            root.getChildren().add(client);
-
-            double valeur = valeurMin + (valeurMax - valeurMin ) * rClient.nextDouble();
-            controller.moveClientArrive(client, valeur, 0);
-        }
-
-
-        controller.collisionClient(this, barman, mediator);
-        controller.collisionBar(barman);
-
     }
-
-    public void loadLevel(Niveau niveau) {
-        Random r = new Random();
-        double min = niveau.getMinSpeed();
-        double max = niveau.getMaxSpeed();
-
-        int index = 1;
-        for(int i = 1; i <= niveau.getNbVoitures(); i++) {
-            Voiture v;
-            if(index == 1 || index == 2) {
-                v = new Voiture(mediator, i * 250, 125 * index, 200, 100, min + (max - min) * r.nextDouble(),"LEFT", "images/voiture" + (r.nextInt((6 - 1) + 1) + 1) + ".png");
-            } else {
-                v = new Voiture(mediator, i * 250, 125 * index, 200, 100, min + (max - min) * r.nextDouble(), "RIGHT", "images/voiture" + (r.nextInt((6 - 1) + 1) + 1) + ".png");
-            }
-            niveau.ajouterVoiture(v);
-            mediator.ajouterEntite(v);
-            root.getChildren().add(v);
-            controller.moveVoiture(scene, v);
-
-            index++;
-            if(index > 4) {
-                index = 1;
-            }
-        }
-        this.barman = new Barman(mediator, scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, niveau.getSpeedBarman(), "images/loic.png");
-        mediator.ajouterEntite(barman);
-        root.getChildren().add(barman);
-        controller.updateBarman(scene, barman);
-
-
-        controller.collisionEntreVoiture(scene, niveau.getVoitures(), (max-min)/2, max, min);
-        controller.collisionObstacle(scene, barman);
-    }
-
-    public void enlever(Object o){
-        root.getChildren().remove(o);
-    }
-
-
 }
 
