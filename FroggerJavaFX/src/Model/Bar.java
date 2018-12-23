@@ -24,6 +24,6 @@ public class Bar extends Entite {
 
     @Override
     public void move(String mouvement) {
-
+        System.out.println("not implemented method");
     }
 }
