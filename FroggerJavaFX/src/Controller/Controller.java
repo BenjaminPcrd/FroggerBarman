@@ -105,7 +105,7 @@ public class Controller {
 
     }
 
-    public void collisionEntreVoiture(Scene scene, ArrayList<Voiture> voitures, double ecart, double max, double min) {
+    public void collisionEntreVoiture(ArrayList<Voiture> voitures, double ecart, double max, double min) {
         AnimationTimer collision = new AnimationTimer() {
             @Override
             public void handle(long l) {
