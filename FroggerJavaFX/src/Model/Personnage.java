@@ -1,7 +1,6 @@
 package Model;
 
 public class Personnage extends Entite {
-
     private double speed;
 
     public Personnage(Mediator m, double x, double y, double w, double h, double speed, String imgPath) {
