@@ -91,24 +91,24 @@ public class Niveau extends Group {
         }
 
         /*########## Génération des bars et des clients ##########*/
-        Boisson biere = new Boisson("biere");
-        Bar bar = new Bar(mediator, 199, scene.getHeight()-60, 50, 50, biere, 10,"images/bar.png");
-        //b.ajouterBoisson(bar, bar.getBoisson());
+        Bar bar = new Bar(mediator, 200, scene.getHeight()-60, 50, 50, new Boisson("Bière"), 10,"images/bar.png");
         mediator.ajouterEntite(bar);
         root.getChildren().add(bar);
-        Random rClient = new Random();
-        double valeurMin = 20;
-        double valeurMax = 1260;
-        for(int i = 1 ; i<= nbClients; i++){
-            Client client = new Client(mediator, -1500 + (-50 - -1500 ) * rClient.nextDouble(), scene.getHeight()-670, 50, 50, 1, bar.getBoisson(),"images/loic.png");
+        controller.collisionBar(barman);
+
+        double minX = 20;
+        double maxX = 1260;
+        double minY = 0;
+        double maxY = 50;
+        for (int i = 0; i < nbClients; i++) {
+            double randomX = minX + (maxX - minX) * r.nextDouble();
+            double randomY = minY + (maxY - minY) * r.nextDouble();
+            double randomSpeed = minSpeed + (maxSpeed - minSpeed) * r.nextDouble();
+            Client client = new Client(mediator, -1000, 0, 50, 50, randomSpeed, new Boisson("Bière"), "images/loic.png");
             mediator.ajouterEntite(client);
             root.getChildren().add(client);
-
-            double valeur = valeurMin + (valeurMax - valeurMin ) * rClient.nextDouble();
-            controller.moveClientArrive(client, valeur, 0);
+            controller.moveClient(client, randomX, randomY);
         }
-
-        controller.collisionClient(barman, mediator);
-        controller.collisionBar(barman);
+        controller.collisionClient(barman);
     }
 }

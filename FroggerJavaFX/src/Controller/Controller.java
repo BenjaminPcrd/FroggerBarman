@@ -1,17 +1,13 @@
 package Controller;
 
 import Model.*;
-import Vue.Plateau;
 import javafx.animation.AnimationTimer;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
 public class Controller {
-    private boolean up, down, left, right, space;
+    private boolean up, down, left, right, space, enter;
     private double latence = 200;
 
     public Controller() {
@@ -20,56 +16,7 @@ public class Controller {
         this.left = false;
         this.right = false;
         this.space = false;
-    }
-
-
-    public void moveClientArrive(Client c, double x, double y) {
-        AnimationTimer move = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                c.move("RIGHT");
-                if (c.getRect().getX() > x) {
-                    c.getRect().setX(x);
-                    this.stop();
-                    c.move("UP");
-                    this.start();
-                    if(c.getRect().getY() < y){
-                        c.getRect().setY(y);
-                        this.stop();
-                    }
-
-                }
-
-
-
-            }
-        };
-        move.start();
-    }
-
-    private void moveClientGo(Client c, double x, double y){
-
-                AnimationTimer move = new AnimationTimer() {
-                    @Override
-                    public void handle(long now) {
-                        c.move("DOWN");
-                        if (c.getRect().getY() > y) {
-                            c.getRect().setY(y);
-                            this.stop();
-                            c.move("LEFT");
-                            this.start();
-                            if(c.getRect().getX() < x){
-                                c.getRect().setX(x);
-                                this.stop();
-                            }
-
-                        }
-
-
-                    }
-                };
-                move.start();
-
+        this.enter = false;
     }
 
     public void updateBarman(Scene scene, Barman b) {
@@ -98,6 +45,7 @@ public class Controller {
         this.down = false;
         this.left = false;
         this.right = false;
+        this.space = false;
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case UP: up = true; break;
@@ -105,6 +53,7 @@ public class Controller {
                 case RIGHT: right = true; break;
                 case LEFT: left = true; break;
                 case SPACE: space = true; break;
+                case ENTER: enter = true; break;
             }
         });
         scene.setOnKeyReleased(event -> {
@@ -114,11 +63,10 @@ public class Controller {
                 case RIGHT: right = false; break;
                 case LEFT: left = false; break;
                 case SPACE: space = false; break;
+                case ENTER: enter = false; break;
             }
         });
     }
-
-
 
     public void moveVoiture(Scene scene, Voiture v) {
         AnimationTimer move = new AnimationTimer() {
@@ -149,6 +97,7 @@ public class Controller {
             public void handle(long l) {
                 if(b.getMediator().collisionVoiture(b) != null) {
                     b.resetPos(scene.getWidth()/2-25, scene.getHeight()-50);
+                    b.viderPlateau();
                 }
             }
         };
@@ -205,24 +154,22 @@ public class Controller {
 
 
 
-    public void collisionClient(Barman b, Mediator m){
+    public void collisionClient(Barman b){
         AnimationTimer collision = new AnimationTimer() {
-            boolean pris = false;
             @Override
             public void handle(long l) {
-                if (!pris)  {
-                    if (b.getMediator().collisionClient(b) != null) {
-                        Client client = (Client)b.getMediator().collisionClient(b);
+                if(b.getMediator().collisionClient(b) != null) {
+                    Client client = (Client)b.getMediator().collisionClient(b);
+                    if(enter) {
                         try {
-                            pris = b.enleverBoisson(client.getBoisson());
-                            m.enleverEntite(client);
-                            moveClientGo(client, -400, 60);
-                            System.out.println("boisson prise");
-
-
+                            b.enleverBoisson(client.getBoisson());
+                            System.out.println("Boisson prise : " + client.getBoisson());
+                            client.getMediator().enleverEntite(client);
+                            moveClient(client, 1300, 60);
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
+                        enter = false;
                     }
                 }
             }
@@ -230,21 +177,34 @@ public class Controller {
         collision.start();
     }
 
+    public void moveClient(Client c, double x, double y){
+        AnimationTimer move = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                c.moveTo(x, y);
+                if (c.getRect().getX() >= x) { // ne fonctionne que quand on fait déplacer le client vers la droite à cause de cette ligne
+                    System.out.println("arrivé");
+                    this.stop();
+                }
+            }
+        };
+        move.start();
+    }
+
     public void collisionBar(Barman b){
         AnimationTimer collision = new AnimationTimer() {
-
             @Override
             public void handle(long l) {
                     if(b.getMediator().collisionBar(b) != null) {
                         Bar bar = (Bar)b.getMediator().collisionBar(b);
-                        if(space){
+                        if(enter) {
                             try {
                                 b.ajouterBoisson(bar, bar.getBoisson());
-                                System.out.println("Boisson ajoutée");
+                                System.out.println("Boisson ajoutée : " + bar.getBoisson());
                             } catch (Exception e) {
                                 System.out.println(e.getMessage());
                             }
-                           space = false;
+                           enter = false;
                         }
                     }
             }
