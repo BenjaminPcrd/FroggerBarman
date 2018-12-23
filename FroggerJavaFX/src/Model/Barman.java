@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Barman extends Personnage {
     private static final int tPlateau = 4;
     private ArrayList<Boisson> plateau;
-    private double speed;
 
     public Barman(Mediator m, double x, double y, double w, double h, double speed, String imgPath) {
         super(m, x, y, w, h, speed, imgPath);
@@ -45,11 +44,4 @@ public class Barman extends Personnage {
         return plateau;
     }
 
-    public double getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
 }
