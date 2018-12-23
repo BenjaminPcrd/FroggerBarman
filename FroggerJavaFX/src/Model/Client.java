@@ -11,17 +11,17 @@ public class Client extends Personnage {
     }
 
     public void moveTo(double xDest, double yDest) {
-        if (getRect().getX() > xDest) {
-            move("LEFT");
+        if (getRect().getY() < yDest && getRect().getY() != yDest) {
+            move("DOWN");
         }
-        if (getRect().getX() < xDest) {
-            move("RIGHT");
-        }
-        if (getRect().getY() > yDest) {
+        if (getRect().getY() > yDest && getRect().getY() != yDest) {
             move("UP");
         }
-        if (getRect().getY() < yDest) {
-            move("DOWN");
+        if (getRect().getX() > xDest && getRect().getX() != xDest) {
+            move("LEFT");
+        }
+        if (getRect().getX() < xDest && getRect().getX() != xDest) {
+            move("RIGHT");
         }
     }
 

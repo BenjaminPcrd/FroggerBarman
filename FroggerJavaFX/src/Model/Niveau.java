@@ -76,7 +76,7 @@ public class Niveau extends Group {
                 index = 1;
             }
         }
-        controller.collisionEntreVoiture(scene, voitures, (maxSpeed-minSpeed)/2, maxSpeed, minSpeed);
+        controller.collisionEntreVoiture(voitures, (maxSpeed-minSpeed)/2, maxSpeed, minSpeed);
 
         /*########## Génération des terres pleins ##########*/
         if (isTerrePleins) {
@@ -90,12 +90,14 @@ public class Niveau extends Group {
             root.getChildren().add(t2);
         }
 
-        /*########## Génération des bars et des clients ##########*/
+        /*########## Génération des bars ##########*/
         Bar bar = new Bar(mediator, 200, scene.getHeight()-60, 50, 50, new Boisson("Bière"), 10,"images/bar.png");
         mediator.ajouterEntite(bar);
         root.getChildren().add(bar);
         controller.collisionBar(barman);
 
+
+        /*########## Génération des clients ##########*/
         double minX = 20;
         double maxX = 1260;
         double minY = 0;
