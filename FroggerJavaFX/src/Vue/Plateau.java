@@ -2,6 +2,8 @@ package Vue;
 
 import Controller.Controller;
 import Model.*;
+import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Group;
@@ -9,8 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 
@@ -54,10 +59,11 @@ public class Plateau {
 
         });
 
+        Niveau lvl;
         switch((String)lvlProperty().get()) {
             case "Facile":
                 System.out.println("Facile");
-                Niveau facile = new Niveau(
+                lvl = new Niveau(
                         1,
                         4,
                         0.5,
@@ -66,11 +72,11 @@ public class Plateau {
                         2,
                         5,
                         mediator, root, controller, scene);
-                facile.generer();
+                lvl.generer();
                 break;
             case "Normal":
                 System.out.println("Normal");
-                Niveau normal = new Niveau(
+                lvl = new Niveau(
                         0.7,
                         6,
                         0.7,
@@ -79,11 +85,11 @@ public class Plateau {
                         2,
                         8,
                         mediator, root, controller, scene);
-                normal.generer();
+                lvl.generer();
                 break;
             case "Hardcore":
                 System.out.println("Hardcore");
-                Niveau hardcore = new Niveau(
+                lvl = new Niveau(
                         0.7,
                         8,
                         1,
@@ -92,11 +98,11 @@ public class Plateau {
                         2,
                         15,
                         mediator, root, controller, scene);
-                hardcore.generer();
+                lvl.generer();
                 break;
             case "DrunkMode":
                 System.out.println("DrunkMode");
-                Niveau drunkMode = new Niveau(
+                lvl = new Niveau(
                         0.5,
                         8,
                         1.7,
@@ -105,14 +111,61 @@ public class Plateau {
                         2,
                         20,
                         mediator, root, controller, scene);
-                drunkMode.generer();
+                lvl.generer();
                 break;
-        }
-    }
+            default:
+                System.out.println("Facile");
+                lvl = new Niveau(
+                        1,
+                        4,
+                        0.5,
+                        1,
+                        false,
+                        2,
+                        5,
+                        mediator, root, controller, scene);
+                lvl.generer();
+                break;
 
-    public void afficherBoissonClient(Client client) {
-        Text t = new Text (client.getRect().getX(), client.getRect().getY(), "Je veux : " + client.getBoisson());
-        root.getChildren().add(t);
+        }
+
+        AnimationTimer testWin = new AnimationTimer() {
+            long prevTime = 0;
+            @Override
+            public void handle(long l) {
+                if (l - prevTime >= 1_000_000_000) {
+                    System.out.println("gagné ? " + lvl.isWin());
+                    if (lvl.isWin()) {
+                        this.stop();
+
+                        String win = "YOU WIN";
+
+                        HBox hBox = new HBox();
+                        hBox.setTranslateX(scene.getWidth()/2 - 100);
+                        hBox.setTranslateY(scene.getHeight()/2 - 100);
+                        root.getChildren().add(hBox);
+
+                        for (int i = 0; i < win.toCharArray().length; i++) {
+                            char letter = win.charAt(i);
+
+                            Text text = new Text(String.valueOf(letter));
+                            text.setFont(Font.font(48));
+                            text.setOpacity(0);
+
+                            hBox.getChildren().add(text);
+
+                            FadeTransition ft = new FadeTransition(Duration.seconds(1), text);
+                            ft.setToValue(1);
+                            ft.setDelay(Duration.seconds(i * 0.15));
+                            ft.play();
+                        }
+                    }
+
+                    prevTime = l ;
+                }
+            }
+        };
+        testWin.start();
     }
 }
 

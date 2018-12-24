@@ -6,11 +6,13 @@ import java.util.ArrayList;
 public class Barman extends Personnage {
     private int taillePlateau;
     private ArrayList<Boisson> plateau;
+    private double origSpeed;
 
     public Barman(Mediator m, double x, double y, double w, double h, double speed, String imgPath) {
         super(m, x, y, w, h, speed, imgPath);
         this.plateau = new ArrayList<>();
         this.taillePlateau = 4;
+        this.origSpeed = speed;
     }
 
     public void ajouterBoisson(Bar bar, Boisson boisson) throws Exception {
@@ -48,6 +50,7 @@ public class Barman extends Personnage {
 
     public void viderPlateau() {
         plateau.clear();
+        setSpeed(origSpeed);
         System.out.println("Le plateau s'est renversé !");
     }
 

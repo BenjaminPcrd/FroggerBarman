@@ -38,6 +38,19 @@ public class Controller {
                 if (right && b.getRect().getX() < scene.getWidth() - b.getRect().getWidth() || b.getMediator().collisionTerrePlein(b) != null) {
                     b.move("RIGHT");
                 }
+
+                /*switch (b.getPlateau().size()) {
+                    case 1:
+                    case 2: b.setSpeed(b.getSpeed() - 0.2); break;
+                    case 3: b.setSpeed(b.getSpeed() - 0.2); break;
+                    case 4: b.setSpeed(b.getSpeed() - 0.2); break;
+                    case 5: b.setSpeed(b.getSpeed() - 0.2); break;
+                    case 6: b.setSpeed(b.getSpeed() - 0.2); break;
+                    case 7: b.setSpeed(b.getSpeed() - 0.2); break;
+                    case 8: b.setSpeed(b.getSpeed() - 0.2); break;
+                    case 9: b.setSpeed(b.getSpeed() - 0.2); break;
+                    case 10: b.setSpeed(b.getSpeed() - 0.2); break;
+                }*/
             }
         };
         move.start();
@@ -166,7 +179,10 @@ public class Controller {
                     if(enter) {
                         try {
                             b.enleverBoisson(client.getBoisson());
-                            System.out.println("Boisson prise : " + client.getBoisson());
+                            b.setSpeed(b.getSpeed() + 0.1); // modification de la vitese
+                            client.setSatisfait(true);
+                            client.setArrive(false); // enlever le texte
+                            System.out.println("Boisson prise : " + client.getBoisson() + " satisfait ? " + client.isSatisfait());
                             client.getMediator().enleverEntite(client);
                             moveClient(client, 1300, 60);
                         } catch (Exception e) {
@@ -186,14 +202,15 @@ public class Controller {
             public void handle(long now) {
                 c.moveTo(x, y);
                 if (c.getRect().getX() >= x) { // ne fonctionne que quand on fait déplacer le client vers la droite à cause de cette ligne
-                    System.out.println("arrivé");
-                    plateau.afficherBoissonClient(c);
+                    c.setArrive(true); // afficher le texte
+                    System.out.println("arrivé ? " + c.isArrive());
                     this.stop();
                 }
             }
         };
         move.start();
     }
+
 
     public void collisionBar(Barman b){
         AnimationTimer collision = new AnimationTimer() {
@@ -204,6 +221,7 @@ public class Controller {
                         if(enter) {
                             try {
                                 b.ajouterBoisson(bar, bar.getBoisson());
+                                b.setSpeed(b.getSpeed() - 0.1); // modification de la vitesse
                                 System.out.println("Boisson ajoutée : " + bar.getBoisson());
                             } catch (Exception e) {
                                 System.out.println(e.getMessage());
