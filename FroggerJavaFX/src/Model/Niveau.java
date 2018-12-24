@@ -91,7 +91,8 @@ public class Niveau extends Group {
         }
 
         /*########## Génération des bars ##########*/
-        Bar bar = new Bar(mediator, 200, scene.getHeight()-60, 50, 50, new Boisson("Bière"), 50,"images/bar.png");
+        Bar bar = new Bar(mediator, 200, scene.getHeight()-60, 100, 70, new Boisson("Bière"), 50,"images/bar.png");
+        bars.add(bar);
         mediator.ajouterEntite(bar);
         root.getChildren().add(bar);
         controller.collisionBar(barman);
@@ -107,10 +108,21 @@ public class Niveau extends Group {
             double randomY = minY + (maxY - minY) * r.nextDouble();
             double randomSpeed = minSpeed + (maxSpeed - minSpeed) * r.nextDouble();
             Client client = new Client(mediator, -1000, 0, 50, 50, randomSpeed, new Boisson("Bière"), "images/loic.png");
+            clients.add(client);
             mediator.ajouterEntite(client);
             root.getChildren().add(client);
             controller.moveClient(client, randomX, randomY);
         }
         controller.collisionClient(barman);
+    }
+
+    public boolean isWin() {
+        int nbClientOk = 0;
+        for(Client c : clients) {
+            if(c.isSatisfait() && c.isArrive()) {
+                nbClientOk++;
+            }
+        }
+        return nbClientOk == nbClients;
     }
 }
