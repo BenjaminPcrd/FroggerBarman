@@ -22,8 +22,4 @@ public class Bar extends Entite {
         this.nbBoisson = nbBoisson;
     }
 
-    @Override
-    public void move(String mouvement) {
-        System.out.println("not implemented method");
-    }
 }

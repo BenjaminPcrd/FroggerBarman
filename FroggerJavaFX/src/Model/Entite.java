@@ -53,7 +53,4 @@ public abstract class Entite extends Group {
     public Rectangle getRect() {
         return rect;
     }
-
-    public abstract void move(String mouvement);
-
 }

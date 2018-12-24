@@ -91,7 +91,7 @@ public class Niveau extends Group {
         }
 
         /*########## Génération des bars ##########*/
-        Bar bar = new Bar(mediator, 200, scene.getHeight()-60, 50, 50, new Boisson("Bière"), 10,"images/bar.png");
+        Bar bar = new Bar(mediator, 200, scene.getHeight()-60, 50, 50, new Boisson("Bière"), 50,"images/bar.png");
         mediator.ajouterEntite(bar);
         root.getChildren().add(bar);
         controller.collisionBar(barman);

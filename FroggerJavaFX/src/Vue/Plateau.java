@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -27,7 +28,7 @@ public class Plateau {
     public Plateau() {
         this.root = new Group();
         this.scene = new Scene(root, 1280, 720);
-        this.controller = new Controller();
+        this.controller = new Controller(this);
         this.mediator = new ApplicationMediator();
     }
 
@@ -107,6 +108,11 @@ public class Plateau {
                 drunkMode.generer();
                 break;
         }
+    }
+
+    public void afficherBoissonClient(Client client) {
+        Text t = new Text (client.getRect().getX(), client.getRect().getY(), "Je veux : " + client.getBoisson());
+        root.getChildren().add(t);
     }
 }
 
