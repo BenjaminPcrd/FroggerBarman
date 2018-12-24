@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Vue.Plateau;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 
@@ -9,14 +10,16 @@ import java.util.ArrayList;
 public class Controller {
     private boolean up, down, left, right, space, enter;
     private double latence = 200;
+    Plateau plateau;
 
-    public Controller() {
+    public Controller(Plateau plateau) {
         this.up = false;
         this.down = false;
         this.left = false;
         this.right = false;
         this.space = false;
         this.enter = false;
+        this.plateau = plateau;
     }
 
     public void updateBarman(Scene scene, Barman b) {
@@ -74,13 +77,13 @@ public class Controller {
             public void handle(long now) {
                 switch(v.getDirection()) {
                     case "LEFT":
-                        v.move("LEFT");
+                        v.move();
                         if (v.getRect().getX() < 0 - v.getRect().getWidth() - latence) {
                             v.getRect().setX(scene.getWidth());
                         }
                         break;
                     case "RIGHT":
-                        v.move("RIGHT");
+                        v.move();
                         if (v.getRect().getX() > scene.getWidth() + latence) {
                             v.getRect().setX(0 - v.getRect().getWidth());
                         }
@@ -109,7 +112,7 @@ public class Controller {
         AnimationTimer collision = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                /*for(Voiture v : voitures) { mode bourré
+                /*for(Voiture v : voitures) {
                     if(v.getMediator().collisionVoiture(v) != null) {
                         this.stop();
                         Voiture v2 = (Voiture)v.getMediator().collisionVoiture(v);
@@ -184,6 +187,7 @@ public class Controller {
                 c.moveTo(x, y);
                 if (c.getRect().getX() >= x) { // ne fonctionne que quand on fait déplacer le client vers la droite à cause de cette ligne
                     System.out.println("arrivé");
+                    plateau.afficherBoissonClient(c);
                     this.stop();
                 }
             }

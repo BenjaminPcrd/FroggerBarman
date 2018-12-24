@@ -12,7 +12,6 @@ public abstract class Personnage extends Entite {
         }
     }
 
-    @Override
     public void move(String direction){
         switch (direction) {
             case "DOWN":
