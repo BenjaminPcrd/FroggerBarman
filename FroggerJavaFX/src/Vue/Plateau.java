@@ -4,8 +4,12 @@ import Controller.Controller;
 import Model.*;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,6 +28,8 @@ public class Plateau {
     private Scene scene;
     private Controller controller;
     private ApplicationMediator mediator;
+    private int compteur;
+    private Text score;
 
     private ObjectProperty lvl = new SimpleObjectProperty();
     //public final Object getLvl() { return lvl.get(); }
@@ -35,7 +41,10 @@ public class Plateau {
         this.scene = new Scene(root, 1280, 720);
         this.controller = new Controller(this);
         this.mediator = new ApplicationMediator();
+        this.compteur = 0;
+
     }
+
 
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Barman Frogger");
@@ -46,7 +55,6 @@ public class Plateau {
         ImageView background = new ImageView(new Image(new FileInputStream("images/fond.png")));
         root.getChildren().add(background);
         controller.setEvenementClavier(scene);
-
         Button menu = new Button("Retour au menu");
         root.getChildren().add(menu);
         menu.setOnAction(actionEvent -> {
@@ -58,6 +66,22 @@ public class Plateau {
             }
 
         });
+
+
+        final KeyFrame KeyFrame0s = new KeyFrame(Duration.ZERO);
+        final KeyFrame KeyFrame1s = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                compteur++;
+                score.setText(String.valueOf(compteur) );
+            }
+        });
+        final Timeline timeline = new Timeline(KeyFrame0s, KeyFrame1s);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.playFromStart();
+
+        this.score = new Text(scene.getWidth() - 50, 50, String.valueOf(compteur));
+        root.getChildren().add(score);
 
         Niveau lvl;
         switch((String)lvlProperty().get()) {
@@ -134,12 +158,12 @@ public class Plateau {
             @Override
             public void handle(long l) {
                 if (l - prevTime >= 1_000_000_000) {
-                    System.out.println("gagné ? " + lvl.isWin());
+                    //System.out.println("gagné ? " + lvl.isWin());
                     if (lvl.isWin()) {
                         this.stop();
-
-                        String win = "YOU WIN";
-
+                        timeline.stop();
+                        String win = "Gagné avec " + compteur + " secondes";
+                        Scores.add(compteur);
                         HBox hBox = new HBox();
                         hBox.setTranslateX(scene.getWidth()/2 - 100);
                         hBox.setTranslateY(scene.getHeight()/2 - 100);
