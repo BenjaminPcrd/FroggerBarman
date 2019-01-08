@@ -163,7 +163,7 @@ public class Plateau {
                         this.stop();
                         timeline.stop();
                         String win = "Gagné avec " + compteur + " secondes";
-
+                        Scores.add(compteur);
                         HBox hBox = new HBox();
                         hBox.setTranslateX(scene.getWidth()/2 - 100);
                         hBox.setTranslateY(scene.getHeight()/2 - 100);
