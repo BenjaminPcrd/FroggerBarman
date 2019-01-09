@@ -15,6 +15,8 @@ public class Niveau extends Group {
     private boolean isTerrePleins;
     private int nbBars;
     private int nbClients;
+    private Barman barman;
+    private int nbViebarman;
 
     private ArrayList<Voiture> voitures;
     private ArrayList<TerrePlein> terrePleins;
@@ -26,7 +28,7 @@ public class Niveau extends Group {
     private Controller controller;
     private Scene scene;
 
-    public Niveau(double speedBarman, int nbVoitures, double minSpeed, double maxSpeed, boolean isTerrePleins, int nbBars, int nbClients, ApplicationMediator mediator, Group root, Controller controller, Scene scene) {
+    public Niveau(double speedBarman, int nbVoitures, double minSpeed, double maxSpeed, boolean isTerrePleins, int nbBars, int nbClients, int nbViebarman, ApplicationMediator mediator, Group root, Controller controller, Scene scene) {
         this.speedBarman  = speedBarman;
         this.nbVoitures = nbVoitures;
         this.minSpeed = minSpeed;
@@ -38,6 +40,7 @@ public class Niveau extends Group {
         this.terrePleins = new ArrayList<>();
         this.bars = new ArrayList<>();
         this.clients = new ArrayList<>();
+        this.nbViebarman = nbViebarman;
         this.mediator = mediator;
         this.root = root;
         this.controller = controller;
@@ -46,7 +49,7 @@ public class Niveau extends Group {
 
     public void generer() {
         /*########## Génération du barman ##########*/
-        Barman barman = new Barman(mediator, scene.getWidth()/2-25, scene.getHeight()-50, 50, 50, speedBarman, "images/loic.png");
+        barman = new Barman(mediator, scene.getWidth()/2-25, scene.getHeight()-50, 50, 50,  speedBarman, nbViebarman,  "images/loic.png");
         mediator.ajouterEntite(barman);
         root.getChildren().add(barman);
         controller.updateBarman(scene, barman);
@@ -99,8 +102,8 @@ public class Niveau extends Group {
 
 
         /*########## Génération des clients ##########*/
-        double minX = 20;
-        double maxX = 1260;
+        double minX = 50;
+        double maxX = 1050;
         double minY = 0;
         double maxY = 50;
         for (int i = 0; i < nbClients; i++) {
@@ -124,5 +127,15 @@ public class Niveau extends Group {
             }
         }
         return nbClientOk == nbClients;
+    }
+
+    public boolean isLose(){
+        if(barman.getNbVie() == 0) return true;
+        else return false;
+    }
+
+
+    public Barman getBarman() {
+        return barman;
     }
 }

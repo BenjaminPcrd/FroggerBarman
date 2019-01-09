@@ -7,12 +7,14 @@ public class Barman extends Personnage {
     private int taillePlateau;
     private ArrayList<Boisson> plateau;
     private double origSpeed;
+    private int nbVie;
 
-    public Barman(Mediator m, double x, double y, double w, double h, double speed, String imgPath) {
+    public Barman(Mediator m, double x, double y, double w, double h, double speed, int nbVie, String imgPath) {
         super(m, x, y, w, h, speed, imgPath);
         this.plateau = new ArrayList<>();
         this.taillePlateau = 4;
         this.origSpeed = speed;
+        this.nbVie = nbVie;
     }
 
     public void ajouterBoisson(Bar bar, Boisson boisson) throws Exception {
@@ -52,6 +54,7 @@ public class Barman extends Personnage {
         plateau.clear();
         setSpeed(origSpeed);
         System.out.println("Le plateau s'est renversé !");
+        this.nbVie = this.nbVie - 1;
     }
 
     public ArrayList<Boisson> getPlateau() {
@@ -64,5 +67,13 @@ public class Barman extends Personnage {
 
     public void setTaillePlateau(int taillePlateau) {
         this.taillePlateau = taillePlateau;
+    }
+
+    public int getNbVie() {
+        return nbVie;
+    }
+
+    public void setNbVie(int nbVie) {
+        this.nbVie = nbVie;
     }
 }

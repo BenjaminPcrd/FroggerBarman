@@ -114,6 +114,7 @@ public class Controller {
                 if(b.getMediator().collisionVoiture(b) != null) {
                     b.resetPos(scene.getWidth()/2-25, scene.getHeight()-50);
                     b.viderPlateau();
+                    System.out.println(b.getNbVie());
                 }
             }
         };

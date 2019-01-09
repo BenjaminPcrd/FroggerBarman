@@ -30,6 +30,7 @@ public class Plateau {
     private ApplicationMediator mediator;
     private int compteur;
     private Text score;
+    private Text nbVie;
 
     private ObjectProperty lvl = new SimpleObjectProperty();
     //public final Object getLvl() { return lvl.get(); }
@@ -44,7 +45,6 @@ public class Plateau {
         this.compteur = 0;
 
     }
-
 
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Barman Frogger");
@@ -95,6 +95,7 @@ public class Plateau {
                         false,
                         2,
                         5,
+                        3,
                         mediator, root, controller, scene);
                 lvl.generer();
                 break;
@@ -108,6 +109,7 @@ public class Plateau {
                         false,
                         2,
                         8,
+                        3,
                         mediator, root, controller, scene);
                 lvl.generer();
                 break;
@@ -121,6 +123,7 @@ public class Plateau {
                         true,
                         2,
                         15,
+                        5,
                         mediator, root, controller, scene);
                 lvl.generer();
                 break;
@@ -134,6 +137,7 @@ public class Plateau {
                         true,
                         2,
                         20,
+                        6,
                         mediator, root, controller, scene);
                 lvl.generer();
                 break;
@@ -147,11 +151,15 @@ public class Plateau {
                         false,
                         2,
                         5,
+                        3,
                         mediator, root, controller, scene);
                 lvl.generer();
                 break;
 
         }
+
+
+
 
         AnimationTimer testWin = new AnimationTimer() {
             long prevTime = 0;
@@ -190,6 +198,25 @@ public class Plateau {
             }
         };
         testWin.start();
+
+
+
+        nbVie = new Text(scene.getWidth() - 80, 50,  String.valueOf(lvl.getBarman().getNbVie()));
+        root.getChildren().add(nbVie);
+        AnimationTimer testDefeat = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if (lvl.isLose()) {
+                    this.stop();
+                    timeline.stop();
+                    System.out.println("perdu");
+                }
+                nbVie.setText(String.valueOf(lvl.getBarman().getNbVie()));
+
+            }
+        };
+        testDefeat.start();
+
     }
 }
 
