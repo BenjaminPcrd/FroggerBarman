@@ -35,6 +35,7 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Scores.loadMesScores("saveScores.bin");
         listProperty.set(FXCollections.observableArrayList(Scores.getMesScores()));
         listeScores.itemsProperty().bind(listProperty);
     }
