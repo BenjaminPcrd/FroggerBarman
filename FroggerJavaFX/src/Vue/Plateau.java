@@ -172,6 +172,8 @@ public class Plateau {
                         timeline.stop();
                         String win = "Gagné avec " + compteur + " secondes";
                         Scores.add(compteur);
+                        Scores.saveMesScores("saveScores.bin");
+
                         HBox hBox = new HBox();
                         hBox.setTranslateX(scene.getWidth()/2 - 100);
                         hBox.setTranslateY(scene.getHeight()/2 - 100);
