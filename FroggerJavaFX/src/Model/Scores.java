@@ -2,17 +2,17 @@ package Model;
 
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.Observable;
+import java.util.*;
 
 public final class Scores {
-    private static ObservableList<Integer> mesScores;
+    private static List<String> mesScores = new ArrayList<>();
 
     public static void add(int time) {
-        mesScores.add(time);
+        mesScores.add(String.valueOf(time));
     }
 
-    public static ObservableList<Integer> getMesScores() {
+    public static List<String> getMesScores() {
+        Collections.sort(mesScores);
         return mesScores;
     }
 }

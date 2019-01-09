@@ -1,10 +1,15 @@
 package Vue;
 
 import Model.Scores;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,7 +18,12 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-public class MenuController {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class MenuController implements Initializable {
 
     @FXML
     ChoiceBox lvl;
@@ -21,10 +31,13 @@ public class MenuController {
     @FXML
     ListView listeScores;
 
+    private ListProperty<String> listProperty = new SimpleListProperty<>();
 
-    /*public MenuController() {
-        listeScores.setItems(Scores.getMesScores());
-    }*/
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        listProperty.set(FXCollections.observableArrayList(Scores.getMesScores()));
+        listeScores.itemsProperty().bind(listProperty);
+    }
 
     public void buttonJouer(ActionEvent actionEvent) {
         Stage primaryStage = (Stage)((Button) actionEvent.getSource()).getScene().getWindow();
