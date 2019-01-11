@@ -47,6 +47,26 @@ public class Niveau extends Group {
         this.scene = scene;
     }
 
+    public void genererClient(String nomBoisson){
+        double minX = 50;
+        double maxX = 1050;
+        double minY = 0;
+        double maxY = 50;
+
+        Random r = new Random();
+
+        for (int i = 0; i < nbClients/nbBars; i++) {
+            double randomX = minX + (maxX - minX) * r.nextDouble();
+            double randomY = minY + (maxY - minY) * r.nextDouble();
+            double randomSpeed = minSpeed + (maxSpeed - minSpeed) * r.nextDouble();
+            Client client = new Client(mediator, -1000, 0, 50, 25, randomSpeed, new Boisson(nomBoisson), "images/client" + (r.nextInt((12 - 1) + 1) + 1) + ".png");
+            clients.add(client);
+            mediator.ajouterEntite(client);
+            root.getChildren().add(client);
+            controller.moveClient(client, randomX, randomY);
+        }
+    }
+
     public void generer() {
         /*########## Génération du barman ##########*/
         barman = new Barman(mediator, scene.getWidth()/2-25, scene.getHeight()-50, 50, 50,  speedBarman, nbViebarman,  "images/loic.png");
@@ -94,28 +114,86 @@ public class Niveau extends Group {
         }
 
         /*########## Génération des bars ##########*/
-        Bar bar = new Bar(mediator, 200, scene.getHeight()-60, 100, 70, new Boisson("Bière"), 50,"images/bar.png");
-        bars.add(bar);
-        mediator.ajouterEntite(bar);
-        root.getChildren().add(bar);
-        controller.collisionBar(barman);
+
+       /* double minX = 50;
+        double maxX = 1050;
+        double minY = 0;
+        double maxY = 50;*/
+
+        Bar barB = new Bar(mediator, 150, scene.getHeight()-60, 100, 70, new Boisson("Bière"), 50,"images/bar.png");
+        Bar barM = new Bar(mediator, 350, scene.getHeight()-60, 100, 70, new Boisson("Mojito"), 50,"images/bar.png");
+        Bar barL = new Bar(mediator, scene.getWidth() - 500, scene.getHeight()-60, 100, 70, new Boisson("Limonade"), 50,"images/bar.png");
+        Bar barP = new Bar(mediator, scene.getWidth() - 250, scene.getHeight()-60, 100, 70, new Boisson("Potion Magique"), 50,"images/bar.png");
+
+
+
+
+
+
+
+
+        switch (nbBars){
+            case 1:
+                    mediator.ajouterEntite(barB);
+                    root.getChildren().add(barB);
+                    controller.collisionBar(barman);
+
+                    genererClient("Bière");
+                    break;
+            case 2:
+                //  bars.add(barM);
+                    mediator.ajouterEntite(barB);
+                    root.getChildren().add(barB);
+                    controller.collisionBar(barman);
+                    mediator.ajouterEntite(barM);
+                    root.getChildren().add(barM);
+                    controller.collisionBar(barman);
+                    genererClient("Bière");
+                    genererClient("Mojito");
+
+
+                    break;
+            case 3:
+                //  bars.add(barL);
+                    mediator.ajouterEntite(barB);
+                    root.getChildren().add(barB);
+                    controller.collisionBar(barman);
+                    mediator.ajouterEntite(barM);
+                    root.getChildren().add(barM);
+                    controller.collisionBar(barman);
+                    mediator.ajouterEntite(barL);
+                    root.getChildren().add(barL);
+                    controller.collisionBar(barman);
+                    genererClient("Bière");
+                    genererClient("Mojito");
+                    genererClient("Limonade");
+                    break;
+            case 4:
+                //  bars.add(barP);
+                    mediator.ajouterEntite(barB);
+                    root.getChildren().add(barB);
+                    controller.collisionBar(barman);
+                    mediator.ajouterEntite(barM);
+                    root.getChildren().add(barM);
+                    controller.collisionBar(barman);
+                    mediator.ajouterEntite(barL);
+                    root.getChildren().add(barL);
+                    controller.collisionBar(barman);
+                    mediator.ajouterEntite(barP);
+                    root.getChildren().add(barP);
+                    controller.collisionBar(barman);
+
+                    genererClient("Bière");
+                    genererClient("Mojito");
+                    genererClient("Limonade");
+                    genererClient("Potion Magique");
+                    break;
+
+        }
 
 
         /*########## Génération des clients ##########*/
-        double minX = 50;
-        double maxX = 1050;
-        double minY = 0;
-        double maxY = 50;
-        for (int i = 0; i < nbClients; i++) {
-            double randomX = minX + (maxX - minX) * r.nextDouble();
-            double randomY = minY + (maxY - minY) * r.nextDouble();
-            double randomSpeed = minSpeed + (maxSpeed - minSpeed) * r.nextDouble();
-            Client client = new Client(mediator, -1000, 0, 50, 25, randomSpeed, new Boisson("Bière"), "images/client" + (r.nextInt((12 - 1) + 1) + 1) + ".png");
-            clients.add(client);
-            mediator.ajouterEntite(client);
-            root.getChildren().add(client);
-            controller.moveClient(client, randomX, randomY);
-        }
+
         controller.collisionClient(barman);
     }
 
@@ -133,7 +211,6 @@ public class Niveau extends Group {
         if(barman.getNbVie() == 0) return true;
         else return false;
     }
-
 
     public Barman getBarman() {
         return barman;
