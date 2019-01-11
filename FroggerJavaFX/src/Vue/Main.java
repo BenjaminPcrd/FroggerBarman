@@ -20,7 +20,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-        System.out.println(Scores.getMesScores());
+        System.out.println(Scores.getMesScores("Facile"));
     }
 
     public void test() {
