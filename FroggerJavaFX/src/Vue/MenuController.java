@@ -1,6 +1,7 @@
 package Vue;
 
 import Model.Scores;
+import Model.Score;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.value.ChangeListener;
@@ -31,13 +32,18 @@ public class MenuController implements Initializable {
     @FXML
     ListView listeScores;
 
-    private ListProperty<String> listProperty = new SimpleListProperty<>();
+    private ListProperty<Score> listProperty = new SimpleListProperty<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Scores.loadMesScores("saveScores.bin");
-        listProperty.set(FXCollections.observableArrayList(Scores.getMesScores()));
+        listProperty.set(FXCollections.observableArrayList(Scores.getMesScores("Facile")));
         listeScores.itemsProperty().bind(listProperty);
+    }
+
+    public void updateLvl(ActionEvent actionEvent) {
+        listProperty.set(FXCollections.observableArrayList(Scores.getMesScores(String.valueOf(lvl.getValue()))));
+        System.out.println();
     }
 
     public void buttonJouer(ActionEvent actionEvent) {

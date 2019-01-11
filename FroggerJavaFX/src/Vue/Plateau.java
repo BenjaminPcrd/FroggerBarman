@@ -93,16 +93,16 @@ public class Plateau {
                         0.5,
                         1,
                         false,
-                        2,
+                        1,
                         5,
-                        3,
+                        2,
                         mediator, root, controller, scene);
                 lvl.generer();
                 break;
             case "Normal":
                 System.out.println("Normal");
                 lvl = new Niveau(
-                        0.7,
+                        1,
                         6,
                         0.7,
                         1.5,
@@ -116,12 +116,12 @@ public class Plateau {
             case "Hardcore":
                 System.out.println("Hardcore");
                 lvl = new Niveau(
-                        0.7,
+                        1,
                         8,
                         1,
                         2,
                         true,
-                        2,
+                        3,
                         15,
                         5,
                         mediator, root, controller, scene);
@@ -130,12 +130,12 @@ public class Plateau {
             case "DrunkMode":
                 System.out.println("DrunkMode");
                 lvl = new Niveau(
-                        0.5,
+                        1,
                         8,
                         1.7,
                         2.7,
                         true,
-                        2,
+                        4,
                         20,
                         6,
                         mediator, root, controller, scene);
@@ -171,7 +171,7 @@ public class Plateau {
                         this.stop();
                         timeline.stop();
                         String win = "Gagné avec " + compteur + " secondes";
-                        Scores.add(compteur);
+                        Scores.add(new Score(compteur, (String)lvlProperty().get()));
                         Scores.saveMesScores("saveScores.bin");
 
                         HBox hBox = new HBox();
