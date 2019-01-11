@@ -14,7 +14,7 @@ public class Client extends Personnage {
         this.boisson = boisson;
         this.arrive = false;
         this.satisfait = false;
-        this.text = new Text (getRect().getX(), getRect().getY(), "Je veux une " + boisson);
+        this.text = new Text (getRect().getX(), getRect().getY(), boisson.toString());
         this.text.setVisible(false);
         this.getChildren().add(text);
     }
