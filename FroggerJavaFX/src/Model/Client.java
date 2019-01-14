@@ -17,6 +17,7 @@ public class Client extends Personnage {
         this.text = new Text (getRect().getX(), getRect().getY(), boisson.toString());
         this.text.setVisible(false);
         this.getChildren().add(text);
+
     }
 
     public void moveTo(double xDest, double yDest) {

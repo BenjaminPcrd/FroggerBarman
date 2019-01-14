@@ -62,8 +62,9 @@ public class Niveau extends Group {
             Client client = new Client(mediator, -1000, 0, 50, 25, randomSpeed, new Boisson(nomBoisson), "images/client" + (r.nextInt((12 - 1) + 1) + 1) + ".png");
             clients.add(client);
             mediator.ajouterEntite(client);
+
             root.getChildren().add(client);
-            controller.moveClient(client, randomX, randomY);
+            controller.moveClient(client, randomX, randomY, mediator);
         }
     }
 
@@ -113,7 +114,7 @@ public class Niveau extends Group {
             root.getChildren().add(t2);
         }
 
-        /*########## Génération des bars ##########*/
+        /*########## Génération des bars et des clients ##########*/
 
        /* double minX = 50;
         double maxX = 1050;
@@ -124,12 +125,6 @@ public class Niveau extends Group {
         Bar barM = new Bar(mediator, 350, scene.getHeight()-60, 100, 70, new Boisson("Mojito"), 50,"images/bar.png");
         Bar barL = new Bar(mediator, scene.getWidth() - 500, scene.getHeight()-60, 100, 70, new Boisson("Limonade"), 50,"images/bar.png");
         Bar barP = new Bar(mediator, scene.getWidth() - 250, scene.getHeight()-60, 100, 70, new Boisson("Potion Magique"), 50,"images/bar.png");
-
-
-
-
-
-
 
 
         switch (nbBars){
