@@ -220,5 +220,13 @@ public class Plateau {
         testDefeat.start();
 
     }
+
+    public ApplicationMediator getMediator() {
+        return mediator;
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
 }
 

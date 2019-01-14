@@ -185,7 +185,7 @@ public class Controller {
                             client.setArrive(false); // enlever le texte
                             System.out.println("Boisson prise : " + client.getBoisson() + " satisfait ? " + client.isSatisfait());
                             client.getMediator().enleverEntite(client);
-                            moveClient(client, 1300, 60);
+                            moveClient(client, 1300, 60, plateau.getMediator());
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
@@ -197,13 +197,14 @@ public class Controller {
         collision.start();
     }
 
-    public void moveClient(Client c, double x, double y){
+    public void moveClient(Client c, double x, double y, Mediator m){
         AnimationTimer move = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 c.moveTo(x, y);
                 if (c.getRect().getX() >= x) { // ne fonctionne que quand on fait déplacer le client vers la droite à cause de cette ligne
                     c.setArrive(true); // afficher le texte
+                    c.getImageView().setRotate(180);
                     System.out.println("arrivé ? " + c.isArrive());
                     this.stop();
                 }
