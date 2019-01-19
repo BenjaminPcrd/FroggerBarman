@@ -197,6 +197,8 @@ public class Controller {
         collision.start();
     }
 
+
+
     public void moveClient(Client c, double x, double y, Mediator m){
         AnimationTimer move = new AnimationTimer() {
             @Override
@@ -205,6 +207,13 @@ public class Controller {
                 if (c.getRect().getX() >= x) { // ne fonctionne que quand on fait déplacer le client vers la droite à cause de cette ligne
                     c.setArrive(true); // afficher le texte
                     c.getImageView().setRotate(180);
+                    if (m.collisionClient(c) != null){
+                        if(x >= plateau.getScene().getHeight()) {
+                            moveClient( c,  x - 20 ,  y,  m);
+                        } else {
+                            moveClient( c,  x + 50 ,  y,  m);
+                        }
+                    }
                     System.out.println("arrivé ? " + c.isArrive());
                     this.stop();
                 }
