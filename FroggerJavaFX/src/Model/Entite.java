@@ -16,9 +16,9 @@ public abstract class Entite extends Group {
     public Entite(Mediator m, double x, double y, double w, double h, String imgPath) {
         this.mediator = m;
         this.rect = new Rectangle();
-        this.rect.setWidth(w - 20);
-        this.rect.setHeight(h - 20);
-        this.rect.setTranslateX(10);
+        this.rect.setWidth(w - 30);
+        this.rect.setHeight(h - 30);
+        this.rect.setTranslateX(20);
         this.rect.setTranslateY(10);
         this.rect.setX(x);
         this.rect.setY(y);

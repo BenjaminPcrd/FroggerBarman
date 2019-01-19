@@ -105,12 +105,12 @@ public class Plateau {
                 System.out.println("Normal");
                 lvl = new Niveau(
                         1,
-                        6,
-                        0.7,
-                        1.5,
+                        9,
+                        1,
+                        1,
                         false,
                         2,
-                        8,
+                        10,
                         3,
                         mediator, root, controller, scene);
                 lvl.generer();
@@ -119,12 +119,12 @@ public class Plateau {
                 System.out.println("Hardcore");
                 lvl = new Niveau(
                         1,
-                        8,
-                        1,
-                        2,
+                        6,
+                        1.5,
+                        1.6,
                         true,
                         3,
-                        15,
+                        16,
                         5,
                         mediator, root, controller, scene);
                 lvl.generer();
@@ -133,12 +133,12 @@ public class Plateau {
                 System.out.println("DrunkMode");
                 lvl = new Niveau(
                         1,
-                        8,
-                        1.7,
-                        2.7,
+                        10,
+                        1.4,
+                        1.4,
                         true,
                         4,
-                        20,
+                        8,
                         6,
                         mediator, root, controller, scene);
                 lvl.generer();
