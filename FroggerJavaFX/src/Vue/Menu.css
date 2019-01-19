@@ -1,19 +1,44 @@
 
-#buttonStyle {
+#buttonJouerStyle {
+
+    -fx-base: #484848;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
     -fx-font: bold italic 30pt "Arial" ;
-    -fx-background-color: #282828;
+
+}
+#buttonRegleStyle {
+
+    -fx-base: #484848;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+    -fx-font: bold italic 10pt "Arial" ;
+}
+
+#TFStyle {
+    -fx-font: bold italic 10pt "Arial" ;
+    -fx-background-color: #484848;
     -fx-text-fill: white;
     -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
 }
 
+#TFStyle2 {
+    -fx-font: bold italic 15pt "Arial" ;
+    -fx-background-color: #484848;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+}
+
+
+
 #CBStyle {
     -fx-font: bold italic 15pt "Arial" ;
-    -fx-background-color: #282828;
+    -fx-background-color: #484848;
     -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
 }
 
 .choice-box {
-  -fx-background-color: #282828;
+  -fx-background-color: #484848;
   -fx-mark-color: white;
 }
 
@@ -22,12 +47,12 @@
 }
 
 .choice-box .context-menu {
-    -fx-background-color: #282828;
+    -fx-background-color: #484848;
     -fx-font: bold italic 10pt "Arial";
  }
 
 .choice-box .menu-item:focused {
-    -fx-background-color: #484848;
+    -fx-background-color: #686868;
 }
 
 .choice-box .menu-item > .label {
