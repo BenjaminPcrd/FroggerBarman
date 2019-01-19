@@ -26,6 +26,7 @@ public class Score implements Serializable, Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return 0; // faire le compareTo
+        Score other = (Score)o;
+        return other.getTemps() >= this.getTemps() ? -1 : 0;
     }
 }
