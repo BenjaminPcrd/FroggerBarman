@@ -32,7 +32,6 @@ public final class Scores implements Serializable {
     }
 
     public static void loadMesScores(String path) {
-
         try(ObjectInputStream input = new ObjectInputStream(new FileInputStream(path))) {
             mesScores = (List<Score>) input.readObject();
         } catch(Exception e) {
