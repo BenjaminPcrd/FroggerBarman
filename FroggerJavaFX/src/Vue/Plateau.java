@@ -3,11 +3,10 @@ package Vue;
 import Controller.Controller;
 import Model.*;
 import javafx.animation.AnimationTimer;
-import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -15,16 +14,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
-import java.awt.event.ActionListener;
 import java.io.FileInputStream;
-import java.util.concurrent.TimeUnit;
 
 public class Plateau {
     private Group root;
@@ -35,10 +30,11 @@ public class Plateau {
     private Text score;
     private Text nbVie;
 
-    private ObjectProperty lvl = new SimpleObjectProperty();
-    //public final Object getLvl() { return lvl.get(); }
-    //public final void setLvl(String value) { lvl.set(value); }
-    public ObjectProperty lvlProperty() { return lvl; }
+    private StringProperty lvl = new SimpleStringProperty();
+    public StringProperty getLvl() { return lvl; }
+
+    private StringProperty pseudo = new SimpleStringProperty();
+    public StringProperty getPseudo() { return pseudo; }
 
     public Plateau() {
         this.root = new Group();
@@ -86,7 +82,7 @@ public class Plateau {
         root.getChildren().add(score);
 
         Niveau lvl;
-        switch((String)lvlProperty().get()) {
+        switch(getLvl().get()) {
             case "Facile":
                 System.out.println("Facile");
                 lvl = new Niveau(
@@ -172,7 +168,7 @@ public class Plateau {
                         this.stop();
                         timeline.stop();
                         String win = "Gagné !! score : " + compteur + " secondes";
-                        Scores.add(new Score(compteur, (String)lvlProperty().get()));
+                        Scores.add(new Score(compteur, getLvl().get(), getPseudo().get()));
                         Scores.saveMesScores("saveScores.bin");
 
                         Text text = new Text(scene.getWidth()/2 - 300, scene.getWidth()/2 - 300, win);
