@@ -19,6 +19,7 @@ public final class Scores implements Serializable {
                 result.add(s);
             }
         }
+        Collections.sort(result);
         return result;
     }
 
@@ -26,7 +27,7 @@ public final class Scores implements Serializable {
         try(ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(path))) {
             output.writeObject(mesScores);
         } catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -35,7 +36,7 @@ public final class Scores implements Serializable {
         try(ObjectInputStream input = new ObjectInputStream(new FileInputStream(path))) {
             mesScores = (List<Score>) input.readObject();
         } catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }

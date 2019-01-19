@@ -225,7 +225,6 @@ public class Plateau {
                                 sec++;
                                 if(sec >= 5) {
                                     this.stop();
-                                    System.out.println("esfs");
                                     menu.fire();
                                 }
                                 prevTime = l ;
