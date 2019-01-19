@@ -20,8 +20,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
+import java.util.concurrent.TimeUnit;
 
 public class Plateau {
     private Group root;
@@ -64,7 +67,6 @@ public class Plateau {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
         });
 
 
@@ -155,7 +157,6 @@ public class Plateau {
                         mediator, root, controller, scene);
                 lvl.generer();
                 break;
-
         }
 
 
@@ -170,31 +171,31 @@ public class Plateau {
                     if (lvl.isWin()) {
                         this.stop();
                         timeline.stop();
-                        String win = "Gagné avec " + compteur + " secondes";
+                        String win = "Gagné !! score : " + compteur + " secondes";
                         Scores.add(new Score(compteur, (String)lvlProperty().get()));
                         Scores.saveMesScores("saveScores.bin");
 
-                        HBox hBox = new HBox();
-                        hBox.setTranslateX(scene.getWidth()/2 - 100);
-                        hBox.setTranslateY(scene.getHeight()/2 - 100);
-                        root.getChildren().add(hBox);
-
-                        for (int i = 0; i < win.toCharArray().length; i++) {
-                            char letter = win.charAt(i);
-
-                            Text text = new Text(String.valueOf(letter));
-                            text.setFont(Font.font(48));
-                            text.setOpacity(0);
-
-                            hBox.getChildren().add(text);
-
-                            FadeTransition ft = new FadeTransition(Duration.seconds(1), text);
-                            ft.setToValue(1);
-                            ft.setDelay(Duration.seconds(i * 0.15));
-                            ft.play();
-                        }
+                        Text text = new Text(scene.getWidth()/2 - 300, scene.getWidth()/2 - 300, win);
+                        text.setFont(Font.font(48));
+                        root.getChildren().add(text);
+                        AnimationTimer cpt = new AnimationTimer() {
+                            long prevTime = 0;
+                            int sec = 0;
+                            @Override
+                            public void handle(long l) {
+                                if (l/1000 - prevTime/1000 >= 1_000_000) {
+                                    sec++;
+                                    if(sec >= 5) {
+                                        this.stop();
+                                        System.out.println("esfs");
+                                        menu.fire();
+                                    }
+                                    prevTime = l ;
+                                }
+                            }
+                        };
+                        cpt.start();
                     }
-
                     prevTime = l ;
                 }
             }
@@ -211,10 +212,28 @@ public class Plateau {
                 if (lvl.isLose()) {
                     this.stop();
                     timeline.stop();
-                    System.out.println("perdu");
+                    String lose = "Game Over";
+                    Text text = new Text(scene.getWidth()/2 - 150, scene.getHeight()/2 - 50, lose);
+                    text.setFont(Font.font(48));
+                    root.getChildren().add(text);
+                    AnimationTimer cpt = new AnimationTimer() {
+                        long prevTime = 0;
+                        int sec = 0;
+                        @Override
+                        public void handle(long l) {
+                            if (l/1000 - prevTime/1000 >= 1_000_000) {
+                                sec++;
+                                if(sec >= 5) {
+                                    this.stop();
+                                    menu.fire();
+                                }
+                                prevTime = l ;
+                            }
+                        }
+                    };
+                    cpt.start();
                 }
                 nbVie.setText(String.valueOf(lvl.getBarman().getNbVie()));
-
             }
         };
         testDefeat.start();
