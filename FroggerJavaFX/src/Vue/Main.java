@@ -20,6 +20,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        scene.getStylesheets().add("Vue/Menu.css");
         System.out.println(Scores.getMesScores("Facile"));
     }
 
