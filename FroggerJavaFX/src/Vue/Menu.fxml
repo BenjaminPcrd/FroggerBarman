@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -25,9 +26,10 @@
                     <String fx:value="DrunkMode" />
             </items>
         </ChoiceBox>
-      <ListView id="LVStyle" fx:id="listeScores" prefHeight="200.0" prefWidth="200.0">
-
-      </ListView>
+      <ListView fx:id="listeScores" prefHeight="200.0" prefWidth="200.0" />
+       <Label text="Pseudo :"/>
+       <TextField fx:id="text1" maxWidth="150"/>
+       <TextField fx:id="text2" maxWidth="150"/>
    </children>
    <padding>
       <Insets top="20.0" />
