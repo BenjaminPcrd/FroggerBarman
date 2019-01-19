@@ -10,22 +10,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.Label?>
-<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vue.MenuController">
+<VBox id="styleBG" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vue.MenuController">
    <children>
-      <Button onAction="#buttonJouer" text="Jouer">
+      <Button id="buttonStyle" onAction="#buttonJouer"  stylesheets="@Menu.css" text="Jouer">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <ChoiceBox fx:id="lvl" onAction="#updateLvl" value="Facile">
+      <ChoiceBox id="CBStyle" fx:id="lvl" onAction="#updateLvl" stylesheets="@Menu.css" value="Facile">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Facile" />
                     <String fx:value="Normal" />
                     <String fx:value="Hardcore" />
                     <String fx:value="DrunkMode" />
-                </FXCollections>
             </items>
         </ChoiceBox>
       <ListView fx:id="listeScores" prefHeight="200.0" prefWidth="200.0" />

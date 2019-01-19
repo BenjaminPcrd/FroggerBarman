@@ -1,0 +1,44 @@
+
+#buttonStyle {
+    -fx-font: bold italic 30pt "Arial" ;
+    -fx-background-color: #282828;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+}
+
+#CBStyle {
+    -fx-font: bold italic 15pt "Arial" ;
+    -fx-background-color: #282828;
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+}
+
+.choice-box {
+  -fx-background-color: #282828;
+  -fx-mark-color: white;
+}
+
+.choice-box > .label {
+    -fx-text-fill: white;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: #282828;
+    -fx-font: bold italic 10pt "Arial";
+ }
+
+.choice-box .menu-item:focused {
+    -fx-background-color: #484848;
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: white;
+}
+
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: black;
+}
+
+
+#styleBG {
+    -fx-background-color: #B8B8B8;
+}
