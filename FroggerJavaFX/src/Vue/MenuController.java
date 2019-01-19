@@ -4,24 +4,17 @@ import Model.Scores;
 import Model.Score;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
@@ -32,6 +25,12 @@ public class MenuController implements Initializable {
     @FXML
     ListView listeScores;
 
+    @FXML
+    TextField text1;
+
+    @FXML
+    TextField text2;
+
     private ListProperty<Score> listProperty = new SimpleListProperty<>();
 
     @Override
@@ -39,6 +38,8 @@ public class MenuController implements Initializable {
         Scores.loadMesScores("saveScores.bin");
         listProperty.set(FXCollections.observableArrayList(Scores.getMesScores("Facile")));
         listeScores.itemsProperty().bind(listProperty);
+
+        text1.textProperty().bindBidirectional(text2.textProperty());
     }
 
     public void updateLvl(ActionEvent actionEvent) {
@@ -50,7 +51,8 @@ public class MenuController implements Initializable {
         Stage primaryStage = (Stage)((Button) actionEvent.getSource()).getScene().getWindow();
         Plateau p = new Plateau();
 
-        p.lvlProperty().bind(lvl.valueProperty());
+        p.getLvl().bind(lvl.valueProperty());
+        p.getPseudo().bind(text1.textProperty());
         try {
             p.start(primaryStage);
         } catch (Exception e) {
