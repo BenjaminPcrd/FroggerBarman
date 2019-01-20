@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="styleBG" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vue.MenuController">
+<VBox fx:id="root" id="styleBG"  alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vue.MenuController">
    <children>
-      <Button id="buttonJouerStyle" onAction="#buttonJouer"  text="Jouer">
+      <Button id="buttonJouerStyle" onAction="#buttonJouer" text="Jouer">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <ChoiceBox id="CBStyle" fx:id="lvl" onAction="#updateLvl"  value="Facile">
+      <ChoiceBox id="CBStyle" fx:id="lvl" onAction="#updateLvl" value="Facile">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Facile" />
@@ -28,8 +28,11 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-      <Button id="buttonRegleStyle" mnemonicParsing="false" text="?" onAction="#buttonRegles" />
-      <ListView fx:id="listeScores" prefHeight="200.0" prefWidth="200.0" />
+      <Button id="buttonRegleStyle" mnemonicParsing="false" onAction="#buttonRegles" text="?" />
+      <ListView id="LVScores" fx:id="listeScores" prefHeight="200.0" prefWidth="200.0">
+         <VBox.margin>
+            <Insets left="50.0" right="50.0" />
+         </VBox.margin></ListView>
        <Label id="TFStyle" text="Pseudo :" />
        <TextField id="TFStyle" fx:id="text1" maxWidth="150" />
        <TextField id="TFStyle" fx:id="text2" maxWidth="150" />

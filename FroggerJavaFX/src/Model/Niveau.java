@@ -59,10 +59,7 @@ public class Niveau extends Group {
 
             double randomX = minX + (maxX - minX) * r.nextDouble();
             double randomY = minY + (maxY - minY) * r.nextDouble();
-
-
-
-            double randomSpeed = 0.1 + 0.35 * r.nextDouble();
+            double randomSpeed = 0.1 + 0.6 * r.nextDouble();
             Client client = new Client(mediator, -1000, 0, 50, 25, randomSpeed, new Boisson(nomBoisson), "images/client" + (r.nextInt((12 - 1) + 1) + 1) + ".png");
             clients.add(client);
             mediator.ajouterEntite(client);
