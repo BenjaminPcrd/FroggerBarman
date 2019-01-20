@@ -11,6 +11,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -32,6 +38,9 @@ public class MenuController implements Initializable {
     @FXML
     TextField text2;
 
+    @FXML
+    VBox root;
+
     private ListProperty<Score> listProperty = new SimpleListProperty<>();
 
     @Override
@@ -39,8 +48,10 @@ public class MenuController implements Initializable {
         Scores.loadMesScores("saveScores.bin");
         listProperty.set(FXCollections.observableArrayList(Scores.getMesScores("Facile")));
         listeScores.itemsProperty().bind(listProperty);
-
         text1.textProperty().bindBidirectional(text2.textProperty());
+        root.setBackground(new Background(new BackgroundFill(new ImagePattern(new Image("biere.jpg")),null,null)));
+
+
     }
 
     public void updateLvl(ActionEvent actionEvent) {

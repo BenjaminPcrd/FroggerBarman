@@ -115,12 +115,12 @@ public class Plateau {
                 System.out.println("Hardcore");
                 lvl = new Niveau(
                         1,
-                        6,
-                        1.5,
+                        9,
+                        1.6,
                         1.6,
                         true,
                         3,
-                        16,
+                        15,
                         5,
                         mediator, root, controller, scene);
                 lvl.generer();
